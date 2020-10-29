@@ -38,3 +38,24 @@ I also tested how the images are shown and linked so if I push screenshots you c
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura002.JPG)
 
 _this is my atomUI and what I see when I document_
+
+### Downloading Unity
+
+I said, ok, I have a build (menu->help->about Unity) and check that I have a 2018 build. I guess that there is no auto update. And when I go to the website there are lots of options and... Unity hub?
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura003.JPG)
+
+_lots of options_
+
+For what I see Unity Hub is Unity with _templates_ [here https://forum.unity.com/threads/templates-overview-details-and-request-for-feedback.514369/](https://forum.unity.com/threads/templates-overview-details-and-request-for-feedback.514369/)
+
+
+
+
+There is also a Unity ID. I don't recommend to use a facebook or google account for this but a ad hoc account. I don't want to tell google or facebook _more_ data about me.
+
+The new download goes with several micro-projects to play with. Also be aware that you will need lots of space (9 Gb) for this installation. And I guess that these tutorial microprojects are not light also.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura004.JPG)
+
+_I really didn't expect that_
