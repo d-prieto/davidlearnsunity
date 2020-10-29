@@ -50,9 +50,9 @@ _lots of options_
 For what I see Unity Hub is Unity with _templates_ [here https://forum.unity.com/threads/templates-overview-details-and-request-for-feedback.514369/](https://forum.unity.com/threads/templates-overview-details-and-request-for-feedback.514369/)
 
 
-
-
 There is also a Unity ID. I don't recommend to use a facebook or google account for this but a ad hoc account. I don't want to tell google or facebook _more_ data about me.
+
+So let's create a new account (you have to put a valid email account) and store with chrome, firefox or something else the password.
 
 The new download goes with several micro-projects to play with. Also be aware that you will need lots of space (9 Gb) for this installation. And I guess that these tutorial microprojects are not light also.
 
