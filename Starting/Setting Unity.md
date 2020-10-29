@@ -59,3 +59,17 @@ The new download goes with several micro-projects to play with. Also be aware th
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura004.JPG)
 
 _I really didn't expect that_
+
+## Tutorials
+
+I'm following the tutorials (as much as I can) and add any thoughts here.
+
+* There is no autosave. So Ctrl+S. (or file-> save)
+
+* For the camera alt plus left click to rotate view.
+
+* E for rotate object.
+
+Between the several tutorials you are going to use the _same_ tutorial, so remember to save previous things that you do, because you will need them. 
+
+When using the Lego magic bricks you have to put it not only in the lego grid but connected in an specific place.
