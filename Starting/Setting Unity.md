@@ -39,7 +39,7 @@ I also tested how the images are shown and linked so if I push screenshots you c
 
 _this is my atomUI and what I see when I document_
 
-### Downloading Unity
+## Installing Unity
 
 I said, ok, I have a build (menu->help->about Unity) and check that I have a 2018 build. I guess that there is no auto update. And when I go to the website there are lots of options and... Unity hub?
 
