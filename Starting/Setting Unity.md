@@ -70,6 +70,12 @@ I'm following the tutorials (as much as I can) and add any thoughts here.
 
 * E for rotate object.
 
-Between the several tutorials you are going to use the _same_ tutorial, so remember to save previous things that you do, because you will need them. 
+Between the several tutorials you are going to use the _same_ tutorial, so remember to save previous things that you do, because you will need them.
 
 When using the Lego magic bricks you have to put it not only in the lego grid but connected in an specific place.
+
+In the last tutorial I'm going to try to make a companion bot. There are several and I like them.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura005.JPG)
+
+This was my first try. They reacts to the player but when they tries to move, they doesn't. Tomorrow I will give more love to this fella.
