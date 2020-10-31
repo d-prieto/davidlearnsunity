@@ -70,6 +70,8 @@ I'm following the tutorials (as much as I can) and add any thoughts here.
 
 * E for rotate object.
 
+* CTRL+P is the shorcut for switch between the play and the edit mode. (kind of useful)
+
 Between the several tutorials you are going to use the _same_ tutorial, so remember to save previous things that you do, because you will need them.
 
 When using the Lego magic bricks you have to put it not only in the lego grid but connected in an specific place.
@@ -79,3 +81,11 @@ In the last tutorial I'm going to try to make a companion bot. There are several
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura005.JPG)
 
 This was my first try. They reacts to the player but when they tries to move, they doesn't. Tomorrow I will give more love to this fella.
+
+After the basics tutorials of the lego microgame there are more that you can see [here](https://learn.unity.com/project/lego-template?signup=true)
+
+### First problems with the bot
+
+I tried the component of a Golem that it's kind of a robot, but when I connect things to it, it seems that they don't interconnect properly
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura006.JPG)
