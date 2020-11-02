@@ -158,3 +158,17 @@ And this is the result
 _It's called Mari Gertrudis_
 
 I added also to the prefabs and now I have several of these!
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura009b.JPG)
+
+_bop!_
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura010.JPG)
+
+Now there are several of them.
+
+And these instances can be modified so each of them acts differently. Here I add a different behavior brick to each of them.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura011.JPG)
+
+_my buddies_ 
