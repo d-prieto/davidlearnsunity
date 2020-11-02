@@ -144,6 +144,8 @@ You can also use Flythrough mode to navigate in the Scene view by flying around 
     Use Q and E to move the view up and down.
     Select and hold Shift to move faster.
 
+* Q and W. Switch between "hand and move"
+
 
 ### New bot
 
@@ -171,4 +173,4 @@ And these instances can be modified so each of them acts differently. Here I add
 
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura011.JPG)
 
-_my buddies_ 
+_my buddies_
