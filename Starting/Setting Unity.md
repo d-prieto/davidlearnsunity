@@ -89,3 +89,26 @@ After the basics tutorials of the lego microgame there are more that you can see
 I tried the component of a Golem that it's kind of a robot, but when I connect things to it, it seems that they don't interconnect properly
 
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura006.JPG)
+
+_the leg is the only part that moves_
+
+So I wil try to do the other tutorials and redo it.
+
+
+### Swapping the protagonist
+
+This corresponds to this [tutorial](https://learn.unity.com/tutorial/lego-r-mod-change-the-player-minifig)
+
+I had a mistake when setting the new camera. I dragged into the inspector the look at and follow to the same camera. So when I tested the camara is only pointing to the sky.
+
+### Useful view commands
+
+Unity navigation tools ([taken from here](https://learn.unity.com/tutorial/creating-with-lego-tools#5f919faeedbc2a00222cd95b))
+
+*    **Pan:** Select the Hand Tool in the Toolbar (keyboard shortcut **Q**), then click and drag in the Scene view to move your view.
+
+*    **Zoom:** Holding Alt (Windows) or Option (macOS), right-click and drag in the Scene view to zoom.
+
+*    **Orbit:** Holding Alt (Windows) or Option (macOS), left-click and drag to orbit around the current pivot point.
+
+*    **Focus (Frame Select):** When a GameObject is selected, move your cursor into the Scene  view and select the **F** key to focus your view on that GameObject. Important: If your cursor is not in the Scene view, Frame Select will not work.
