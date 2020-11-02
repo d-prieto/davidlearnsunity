@@ -143,3 +143,18 @@ You can also use Flythrough mode to navigate in the Scene view by flying around 
     Use WASD to move the view left/right/forward/backward.
     Use Q and E to move the view up and down.
     Select and hold Shift to move faster.
+
+
+### New bot
+
+So using [this tutorial](https://learn.unity.com/tutorial/lego-r-mod-build-your-own-enemy?uv=2019.4&projectId=5f3cfedbedbc2a002093abe3#5f3d0ca9edbc2a0020e35d17) I added another being in the map.
+
+In this case I just used the starter bricks because when I used a mix of cool ones I couldn't find the object connected in the project = (
+
+And this is the result
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura009.JPG)
+
+_It's called Mari Gertrudis_
+
+I added also to the prefabs and now I have several of these!
