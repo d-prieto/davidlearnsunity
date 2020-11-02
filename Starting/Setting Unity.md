@@ -101,6 +101,27 @@ This corresponds to this [tutorial](https://learn.unity.com/tutorial/lego-r-mod-
 
 I had a mistake when setting the new camera. I dragged into the inspector the look at and follow to the same camera. So when I tested the camara is only pointing to the sky.
 
+
+### Adding more behavior to an enemy (being destroyable)
+
+I added the option to one of the enemys to explode if it's touched.
+
+This is the enemy.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura007.JPG)
+
+_tower of evil_
+
+I had a bug because the bricks weren't connected properly. Also I had to ensure that everything was connected because I tried once and the brick was upside down so the behavior was totally disconnected.
+
+And these are the settings of the touch behavior brick
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura008.JPG)
+
+_so now it looks at you and fires you and gets destroyed if you touch it_
+
+
+
 ### Useful view commands
 
 Unity navigation tools ([taken from here](https://learn.unity.com/tutorial/creating-with-lego-tools#5f919faeedbc2a00222cd95b))
@@ -112,3 +133,13 @@ Unity navigation tools ([taken from here](https://learn.unity.com/tutorial/creat
 *    **Orbit:** Holding Alt (Windows) or Option (macOS), left-click and drag to orbit around the current pivot point.
 
 *    **Focus (Frame Select):** When a GameObject is selected, move your cursor into the Scene  view and select the **F** key to focus your view on that GameObject. Important: If your cursor is not in the Scene view, Frame Select will not work.
+
+
+* Flythrough mode
+
+You can also use Flythrough mode to navigate in the Scene view by flying around in first person, which is common in many games. To do this:
+
+    **Click and hold the right mouse button.**
+    Use WASD to move the view left/right/forward/backward.
+    Use Q and E to move the view up and down.
+    Select and hold Shift to move faster.
