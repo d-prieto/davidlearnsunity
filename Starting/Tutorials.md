@@ -145,4 +145,18 @@ You'll see something like this:
 
 _this is already installed but you get the idea_
 
-And you press add to my stuff/purchase for free blue button. 
+And you press add to my stuff/purchase for free blue button.  Then you can open it with unity. It's not yet installed. In unity you'll see a new window of package manager.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura015.JPG)
+
+Now you can download it. (Button on the bottom right) Once you have download it you can import into your project (button next to download)
+
+Then Unity will show you another window to confirm the contents of the package and the route.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura016.JPG)
+
+Just confirm by pressing Import in that window. And now if everything is ok, the content should be in your project like this
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura017.JPG)
+
+_ready to roll!_
