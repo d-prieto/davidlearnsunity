@@ -119,10 +119,30 @@ And these instances can be modified so each of them acts differently. Here I add
 
 _my buddies_
 
-Now I'm trying to get rid of the behavior bricks using them as script components and not physical (sort of) components.
+Now I'm trying to get rid of the behavior bricks using them as script components and not physical (sort of) components. [I'm using this tutorial](https://learn.unity.com/tutorial/lego-mod-behavior-beyond-bricks)
 
 So I made stinky
 
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura012.JPG)
 
 _Stinky says pop POP_
+
+Remember when adding a script that you might accidentally added to several bricks instead of just one.
+
+When I'm doing the moody sky tutorial, it asks me for downloading and installing some assets. Since they are not explained, I'll do it here for future David.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura013.JPG)
+
+_so installing things, huh?_
+
+## How to add and import an asset from the asset store
+
+In this case (Lego assets available for free in the Unity Store) I go for the addons linked while I'm logged in.
+
+You'll see something like this:
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura014.JPG)
+
+_this is already installed but you get the idea_
+
+And you press add to my stuff/purchase for free blue button. 
