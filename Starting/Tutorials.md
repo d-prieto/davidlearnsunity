@@ -91,9 +91,6 @@ And these are the settings of the touch behavior brick
 _so now it looks at you and fires you and gets destroyed if you touch it_
 
 
-
-
-
 ### New bot
 
 So using [this tutorial](https://learn.unity.com/tutorial/lego-r-mod-build-your-own-enemy?uv=2019.4&projectId=5f3cfedbedbc2a002093abe3#5f3d0ca9edbc2a0020e35d17) I added another being in the map.
@@ -121,3 +118,11 @@ And these instances can be modified so each of them acts differently. Here I add
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura011.JPG)
 
 _my buddies_
+
+Now I'm trying to get rid of the behavior bricks using them as script components and not physical (sort of) components.
+
+So I made stinky
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura012.JPG)
+
+_Stinky says pop POP_
