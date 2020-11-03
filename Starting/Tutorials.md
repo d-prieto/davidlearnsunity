@@ -166,3 +166,7 @@ Using that tutorial about changing the sky and adding music to the scene I final
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura018.JPG)
 
 _I like it more this way_
+
+And when I finished all the tutorials this is what I left:
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura019.JPG)

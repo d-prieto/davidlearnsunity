@@ -60,4 +60,6 @@ The new download goes with several micro-projects to play with. Also be aware th
 
 _I really didn't expect that_
 
+[Also I found that one of the tutorials covers in detail how to set up Unity](https://learn.unity.com/tutorial/create-your-first-unity-project)
+
 I continue exploring the tutorials in the [tutorials page](Tutorials.md)
