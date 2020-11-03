@@ -2,7 +2,7 @@
 
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura004.JPG)
 
-So now the Unity comes with lego tutorials. I'm following them and add any thoughts here.
+So now the Unity comes with lego tutorials. [After setting Unity](Setting%20Unity.md) I'm following them and add any thoughts here.
 
 ## Useful info
 
