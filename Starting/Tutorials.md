@@ -160,3 +160,9 @@ Just confirm by pressing Import in that window. And now if everything is ok, the
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura017.JPG)
 
 _ready to roll!_
+
+Using that tutorial about changing the sky and adding music to the scene I finally put some other colors to the game
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura018.JPG)
+
+_I like it more this way_
