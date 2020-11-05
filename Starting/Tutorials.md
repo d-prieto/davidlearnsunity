@@ -28,7 +28,7 @@ Unity navigation tools ([taken from here](https://learn.unity.com/tutorial/creat
 
 *    **Orbit:** Holding Alt (Windows) or Option (macOS), left-click and drag to orbit around the current pivot point.
 
-*    **Focus (Frame Select):** When a GameObject is selected, move your cursor into the Scene  view and select the **F** key to focus your view on that GameObject. Important: If your cursor is not in the Scene view (like being in the inspector), Frame Select will not work.
+*    **Focus (Frame Select):** When a GameObject is selected, move your cursor into the Scene  view and select the **F** key to focus your view on that GameObject. Important: If your cursor is not in the Scene view (like being on the inspector), Frame Select will not work.
 
 
 * Flythrough mode
