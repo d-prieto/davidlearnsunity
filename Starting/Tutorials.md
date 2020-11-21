@@ -172,3 +172,16 @@ And when I finished all the tutorials this is what I left:
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura019.JPG)
 
 Now I'm using the next course. [Starting with unity](https://learn.unity.com/course/getting-started-with-unity?uv=2019.3)
+
+## I don't have the option that the tutorial needs
+
+When I'm doing the course of the platformer (which is the one the more interesting for me). [I see that the Tile Palette to make palettes is not avialable](https://learn.unity.com/tutorial/2d-platformer-challenge-paint-your-level?uv=2019.3&projectId=5c8838feedbc2a0ee1e7e030#5c8932f9edbc2a1410354fda) because... reasons.
+
+So let's try to find out how to make it avialable.
+
+It seems that you need to install [Tilemap](https://docs.unity3d.com/Manual/class-Tilemap.html) to have the option. To install you need to go to the package manager (Window > Package Manager, just bellow Asset Store). Then if you look for Tilemap
+
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura020.JPG)
+
+And when you install it you have the option of go to Window > Tile palette. 
