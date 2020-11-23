@@ -184,4 +184,16 @@ It seems that you need to install [Tilemap](https://docs.unity3d.com/Manual/clas
 
 ![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/Captura020.JPG)
 
-And when you install it you have the option of go to Window > Tile palette. 
+And when you install it you have the option of go to Window > Tile palette.
+
+## Conclusions of the Unity Tutorials (microgames)
+
+I've worked with the microgames of the kart and the 2D microgame.
+
+The Unity microgames tutorials and projects are nice because they give you the feel of doing things and showing them. The bad part is that you just modify things instead of making them. But it's useful, nonetheless.
+
+After doing them I followed the course more "We're putting here a circle" that it's not that fancy but once you've done the microgames it's easier to swallow.
+
+Here is the pachinko animation that I've done.
+
+![Starting image](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/Starting/images/pachinko.gif)
