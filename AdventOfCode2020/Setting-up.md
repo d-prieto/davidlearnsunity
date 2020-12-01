@@ -146,3 +146,74 @@ Console.WriteLine("Rounds done: "+rounds);
 And it's good. It needs only half of the rounds to find the solution. 7488 in this case. 10109 if I it was just the last pair of numbers. Cool! Now let's try with the combination.
 
 If you have an odd number it can be Even+Even+Even, Odd+Odd+Even. So that's the 2 combinations we're going to try.
+
+```
+var evenInputs = new List<int>();
+var oddInputs = new List<int>();
+int solution;
+Console.WriteLine("Sorting...");
+for (var index = inputs.Count - 1; index >= 0; index--)
+{
+rounds++;
+if (inputs[index]%2 == 0) {
+    evenInputs.Add(inputs[index]);
+}
+else
+{
+    oddInputs.Add(inputs[index]);
+}
+}
+Console.WriteLine("Sorting done. Rounds: "+rounds);
+Console.WriteLine("Checking odds+odd+even");
+for (var firstNumber = oddInputs.Count - 1; firstNumber >= 0; firstNumber--)
+{
+  for (var secondNumber = firstNumber - 1; secondNumber >= 0; secondNumber--)
+      {
+          for(var evenNumber = evenInputs.Count - 1; evenNumber >=0; evenNumber--)
+          {
+                     rounds++;
+      if (oddInputs[firstNumber]+oddInputs[secondNumber]+evenInputs[evenNumber] == 2020 ){
+          Console.WriteLine("First number "+oddInputs[firstNumber]);
+          Console.WriteLine("Second number "+oddInputs[secondNumber]);
+          Console.WriteLine("Third number "+evenInputs[secondNumber]);
+          solution = oddInputs[firstNumber] * oddInputs[secondNumber] * evenInputs[evenNumber];
+          Console.WriteLine("Solution: "+solution);
+          firstNumber=0;
+          secondNumber=0;
+          evenNumber=0;
+          }
+      }
+      }
+}
+Console.WriteLine("Odd+Odd+Even done. Rounds: "+rounds);
+Console.WriteLine("Checking even+even+even");
+for (var firstNumber = evenInputs.Count - 1; firstNumber >= 0; firstNumber--)
+{
+  for (var secondNumber = firstNumber - 1; secondNumber >= 0; secondNumber--)
+      {
+          for(var thirdNumber = secondNumber -1; thirdNumber >=0; thirdNumber--)
+          {
+              rounds++;
+              if (evenInputs[firstNumber]+evenInputs[secondNumber] +evenInputs[thirdNumber] == 2020 ){
+                  Console.WriteLine("First number "+evenInputs[firstNumber]);
+                  Console.WriteLine("Second number "+evenInputs[secondNumber]);
+                  Console.WriteLine("Third number "+evenInputs[thirdNumber]);
+                  solution = evenInputs[firstNumber] * evenInputs[secondNumber] * evenInputs[thirdNumber];
+                  Console.WriteLine("Solution: "+solution);
+                  firstNumber = 0;
+                  secondNumber =0;
+                  thirdNumber =0;
+              }
+          }
+      }
+
+}
+Console.WriteLine("Rounds done: "+rounds);
+   }
+}
+
+
+```
+
+
+And I find it! It takes 459076 rounds to find it. But wait. That's less than the 360088 times that the other algorithm took. So maybe using different groups (Because you have to take 1 from the even before going to the odds) is too much. Let's see how takes to the brute force to find it if it's the last pair. 
