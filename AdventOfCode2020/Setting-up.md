@@ -220,4 +220,122 @@ And I find it! It takes 459076 rounds to find it. But wait. That's less than the
 
 (just comment the break out of the for iterator for that)
 
-1313400 times. Ok. That's better. I cut that in half because if I run the other solution without taking the exit... 656619 times so still around half. Still not a bad strategy. Yay. 
+1313400 times. Ok. That's better. I cut that in half because if I run the other solution without taking the exit... 656619 times so still around half. Still not a bad strategy. Yay.
+
+## Second day
+
+This puzzle has a more dificult input. It should be easy to create a rule about it, but first I want to know I can parse it!
+
+This is a line of the input:
+
+```
+2-3 b: bkkb
+```
+
+To separate the strings for each input I put "," with notepad++. And also retrieve the jumplines and put spaces because it doesn't enter as a collection if I don't do that. Now I have 1000 Strings. Cool.
+
+Now not to break the online compiler, I'm making first a run to chop the String in the parts I need. This is what I've used:
+
+```
+// inputs is a collection with all the strings, but I take only one for checking
+
+var stringToChop = inputs[25];
+int firstDelimitation = stringToChop.IndexOf("-");
+int secondDelimitation = stringToChop.IndexOf(" ");
+int thirdDelimitation = stringToChop.IndexOf(":");
+int leastTimes = Int32.Parse(stringToChop.Substring(0, firstDelimitation));
+int mostTimes = Int32.Parse(stringToChop.Substring(firstDelimitation+1,secondDelimitation-2));
+char letterToCheck = stringToChop[thirdDelimitation-1];
+string password = stringToChop.Substring(thirdDelimitation+2);
+Console.WriteLine(leastTimes);
+Console.WriteLine(mostTimes);
+Console.WriteLine(letterToCheck);
+Console.WriteLine(password);
+
+
+```
+
+Now that I have the variables as I want them, I can try to make the check and then iterate it.
+
+This is that step:
+
+```
+
+int validPasswords = 0;
+
+
+var stringToChop = inputs[2];
+int firstDelimitation = stringToChop.IndexOf("-");
+int secondDelimitation = stringToChop.IndexOf(" ");
+int thirdDelimitation = stringToChop.IndexOf(":");
+int leastTimes = Int32.Parse(stringToChop.Substring(0, firstDelimitation));
+int mostTimes = Int32.Parse(stringToChop.Substring(firstDelimitation+1,secondDelimitation-2));
+char letterToCheck = stringToChop[thirdDelimitation-1];
+string password = stringToChop.Substring(thirdDelimitation+2);
+int repetitionCount =0;
+  foreach (var character in password){
+      if (character.Equals(letterToCheck)){
+          repetitionCount++;
+      }
+  }
+  if ((repetitionCount <= mostTimes) && (repetitionCount >= leastTimes)) {
+      validPasswords++;
+  }
+
+  Console.WriteLine(leastTimes);
+Console.WriteLine(mostTimes);
+Console.WriteLine(letterToCheck);
+Console.WriteLine(password);
+Console.WriteLine(repetitionCount);
+Console.WriteLine(validPasswords);
+
+
+```
+
+I like the iterator of characters in a string. Now time to double check that those >= and <= are correct to the problem!
+
+Yeah, it seems so. Now time to iterate!
+
+And it works! here is the code:
+
+```
+
+var inputs = new List<String>()
+{"2-6 w: wkwwwfwwpvw ","14-15 v:
+...
+ }; 
+
+int validPasswords = 0;
+
+
+foreach (string stringToChop in inputs)
+{
+
+    int firstDelimitation = stringToChop.IndexOf("-");
+    int secondDelimitation = stringToChop.IndexOf(" ");
+    int thirdDelimitation = stringToChop.IndexOf(":");
+    int leastTimes = Int32.Parse(stringToChop.Substring(0, firstDelimitation));
+    int mostTimes = Int32.Parse(stringToChop.Substring(firstDelimitation+1,secondDelimitation-2));
+    char letterToCheck = stringToChop[thirdDelimitation-1];
+    string password = stringToChop.Substring(thirdDelimitation+2);
+    int repetitionCount =0;
+      foreach (var character in password){
+          if (character.Equals(letterToCheck)){
+              repetitionCount++;
+          }
+      }
+      if ((repetitionCount <= mostTimes) && (repetitionCount >= leastTimes)) {
+          validPasswords++;
+      }
+}
+
+
+
+Console.WriteLine(validPasswords);
+
+
+
+}
+}
+
+```
