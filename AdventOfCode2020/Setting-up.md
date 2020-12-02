@@ -303,7 +303,7 @@ And it works! here is the code:
 var inputs = new List<String>()
 {"2-6 w: wkwwwfwwpvw ","14-15 v:
 ...
- }; 
+ };
 
 int validPasswords = 0;
 
@@ -339,3 +339,43 @@ Console.WriteLine(validPasswords);
 }
 
 ```
+
+Now for the second part!
+
+Ok, now the rules are different. But it seems that can be solved by being careful with "indexOf" (C# is zero based, the problem is not)
+
+Time to use the [IR operator](https://docs.microsoft.com/es-es/dotnet/csharp/language-reference/operators/boolean-logical-operators#logical-exclusive-or-operator-), one of those operators that are almost never used.
+
+
+This is the code used.
+
+```
+
+int validPasswords = 0;
+
+
+foreach (string stringToChop in inputs)
+{
+
+    int firstDelimitation = stringToChop.IndexOf("-");
+    int secondDelimitation = stringToChop.IndexOf(" ");
+    int thirdDelimitation = stringToChop.IndexOf(":");
+    int firstLetter = Int32.Parse(stringToChop.Substring(0, firstDelimitation));
+    int secondLetter = Int32.Parse(stringToChop.Substring(firstDelimitation+1,secondDelimitation-2));
+    char letterToCheck = stringToChop[thirdDelimitation-1];
+    string password = stringToChop.Substring(thirdDelimitation+2);
+
+      if (password[firstLetter-1].Equals(letterToCheck) ^ password[secondLetter-1].Equals(letterToCheck)) {
+          validPasswords++;
+      }
+}
+
+
+
+Console.WriteLine(validPasswords);
+
+```
+
+The only thing was the syntax error while swapping the if (always a "{" or a "(" extra). Ah, and also the correction was to put a -1 instead of a +1 that I thought that it gave a outofbounds error.
+
+Yay * it's late * 
