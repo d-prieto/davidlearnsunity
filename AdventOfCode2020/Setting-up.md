@@ -379,3 +379,16 @@ Console.WriteLine(validPasswords);
 The only thing was the syntax error while swapping the if (always a "{" or a "(" extra). Ah, and also the correction was to put a -1 instead of a +1 that I thought that it gave a outofbounds error.
 
 Yay * it's late * 
+
+## Third day
+
+This is a [day about a map, trees](https://adventofcode.com/2020/day/3) and I think it has to do with the modulus operator. And today I don't have a mouse so everything is going to bit a little slower. 
+
+First we parse the input. As we did with other we need a bit of notepad++, we delete the end of line (EOL) and we add at the beginning of each line "," so you get something like this
+
+```
+
+var inputs = new List<string>()
+       {
+       
+```
