@@ -418,7 +418,57 @@ var inputs = new List<string>()
              Console.WriteLine(inputs[4].Length);
              Console.WriteLine(inputs[4][31]);
              int horizontalPosition = 0;
-             int characterToCheck = (horizontalPosition % 31)  -1;
-             char 
+             int treeCounter = 0;
+             int characterPositionToCheck = (horizontalPosition % 31)  -1;
+             if (inputs[0][characterPositon].Equals("#")) {
+       treeCounter++
+       }
+       Console.WriteLine(treeCounter);
      
+     
+     Important: when using char (individual characters) and the method Equals, it's better to use '' instead of "" or it won't work. 
+     
+     
+     And this is the first test
+     
+     
+                 Console.WriteLine(inputs[4].Length);
+             Console.WriteLine(inputs[4][31]);
+             int horizontalPosition = 35;
+             int treeCounter = 0;
+             int characterPositionToCheck = (horizontalPosition % 31)  -1;
+             if (inputs[1][characterPositionToCheck].Equals('#')) {
+       treeCounter++;
+       }
+       Console.WriteLine(treeCounter);
+       
+       I had some problems with horizontal position because sometimes it went -1 so I just put a longer formula to get the index through the verticalPosition 
+       
+       int characterPositionToCheck = ((verticalPosition * 3) % 31);
+       
+       Aaaaand it worked! here is the snippet
+       
+                    Console.WriteLine(inputs[1]);
+             Console.WriteLine(inputs.Count);
+             Console.WriteLine(inputs[4][31]);
+             int horizontalPosition = 1;
+             int treeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition ++) {
+             
+
+             	int characterPositionToCheck = ((verticalPosition * 3) % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       treeCounter ++;
+       }
+       
+       
+      
+             }
+
+
+       Console.WriteLine(treeCounter);
+    }
+  }
+  
+  Now to the second puzle. It seems that I have to vary the for parameters. 
 
