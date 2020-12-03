@@ -471,4 +471,58 @@ var inputs = new List<string>()
   }
   
   Now to the second puzle. It seems that I have to vary the for parameters. 
+  
+  I think I could make an abstraction of the function because it's used 5 times, but since I'm not sure about how to do the last part, I finally chose just to make 5 times the same code with the tweaks. And it was correct! Yay!
+  
+               Console.WriteLine("FirstSlope");
+             int firstTreeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition ++) {
+             	int characterPositionToCheck = (verticalPosition % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       firstTreeCounter ++;
+       }     
+             }
+       Console.WriteLine(firstTreeCounter);
+       Console.WriteLine("SecondSlope");
+             int secondTreeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition ++) {
+             	int characterPositionToCheck = ((verticalPosition * 3) % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       secondTreeCounter ++;
+       }     
+             }
+       Console.WriteLine(secondTreeCounter);
+             Console.WriteLine("ThirdSlope");
+             int threeTreeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition ++) {
+             	int characterPositionToCheck = ((verticalPosition * 5) % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       threeTreeCounter ++;
+       }     
+             }
+       Console.WriteLine(threeTreeCounter);
+             Console.WriteLine("ForthSlope");
+             int forthTreeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition ++) {
+             	int characterPositionToCheck = ((verticalPosition * 7) % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       forthTreeCounter ++;
+       }     
+             }
+       Console.WriteLine(forthTreeCounter);
+                    Console.WriteLine("FifthSlope");
+             int fifthTreeCounter = 0;
+             for (int verticalPosition = 0; verticalPosition < inputs.Count; verticalPosition +=2) {
+             	int characterPositionToCheck = ((verticalPosition / 2) % 31);
+                            if (inputs[verticalPosition][characterPositionToCheck].Equals('#')) {
+       fifthTreeCounter ++;
+       }     
+             }
+       Console.WriteLine(fifthTreeCounter);
+       double total = fifthTreeCounter * forthTreeCounter *threeTreeCounter * secondTreeCounter * firstTreeCounter;
+       Console.WriteLine(total);
+    }
+  }
+  
+  
 
