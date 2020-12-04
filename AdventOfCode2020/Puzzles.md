@@ -534,7 +534,7 @@ var inputs = new List<string>()
        Console.WriteLine(total);
     }
   }
-    ```
+```
 
 ##  Forth Day
 
