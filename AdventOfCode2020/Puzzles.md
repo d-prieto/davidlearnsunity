@@ -540,4 +540,6 @@ var inputs = new List<string>()
 
 Today I do have a mouse and set up the computer properly to clean up the documentation of yesterday (it was a mess with the whole input) and start the new problem.
 
-It seems that we're about of chopping more inputs, and today is more complex. It's the full passport stuff. 
+It seems that we're about of chopping more inputs, and today is more complex. It's the full passport stuff.
+
+pl
