@@ -631,3 +631,102 @@ It's not enough so there are some that I'm missing out somehow.I changed the inp
 So the next part of the problem is more complex and we have to check more things.  
 
 I'll keep this function because it will make easier to filter the passport that miss any field.
+
+I change the name of the function to passportHasAllFields(string passport) to be more clear.
+
+And I think that I need also a static function to look for the substrings for each field and then, sigh, 7 functions for each field.
+
+```
+
+}using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<string>()
+       {
+---
+       };
+        Console.WriteLine("Hello, world!");
+        Console.WriteLine(inputs[0]);
+
+        int validPasssports = 0;
+        string passportToCheck = inputs[0];
+        foreach (string passport in inputs)
+        {
+            if (passportHasAllFields(passport) == false)
+            {
+                continue;
+            }
+			if (passportHasBirthYearCorrect(passport) == false)
+            {
+                continue;
+            }
+			validPasssports ++;
+        }
+ Console.WriteLine(validPasssports);
+  Console.WriteLine("People from the North Pole: " +peopleFromTheNorthPole);
+    Console.WriteLine(getField(inputs[0],"byr:"));
+    }
+
+         static int peopleFromTheNorthPole = 0;
+
+   static bool passportHasBirthYearCorrect(string passport)
+   {
+	   int year = Int32.Parse(getField(passport,"byr:"));
+	   if ((year >= 1920) %% (year <= 2002)
+	   {
+		   return true;
+	   }
+	   return false;
+   }
+
+   static string getField(string passport, string field) {
+	   int startOfDataField = passport.IndexOf(field)+4;
+	   int endOfDataField = passport.IndexOf(" ",startOfDataField);
+	   return passport.Substring(startOfDataField, endOfDataField-startOfDataField);
+   }
+
+
+   static bool passportHasAllFields(string passport)
+    {
+        if (passport.IndexOf("byr:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("iyr:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("eyr:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("hgt:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("hcl:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("ecl:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("pid:")== -1)
+        {
+        return false;
+        }
+        if (passport.IndexOf("cid:")== -1)
+        {
+      //  Console.WriteLine("One from the North Pole");
+        peopleFromTheNorthPole ++;
+        }
+        return true;
+    }
+
+}
+
+```
