@@ -571,57 +571,63 @@ return true;
 Now let's try this
 
 ```
-int peopleFromTheNorthPole = 0;
-       int validPasssports = 0;
-       string passportToCheck = inputs[0];
-       foreach (passport in inputs)
-       {
-           if (isValidPassport(passport))
-           {
-               validPassports++;
-           }
-       }
+int validPasssports = 0;
+string passportToCheck = inputs[0];
+foreach (string passport in inputs)
+{
+    if (isValidPassport(passport))
+    {
+        validPasssports++;
+    }
+}
 Console.WriteLine(validPasssports);
- Console.WriteLine(peopleFromTheNorthPole);
-   }
+Console.WriteLine(peopleFromTheNorthPole);
+}
 
-  static bool isValidPassport(string passport)
-   {
-       if (passport.IndexOf("byr:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("iyr:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("eyr:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("hgt:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("hcl:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("ecl:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("pid:")== -1)
-       {
-       return false;
-       }
-       if (passport.IndexOf("cid:")== -1)
-       {
-       Console.WriteLine("One from the North Pole");
-       peopleFromTheNorthPole ++;
-       return false;
-       }
-       return true;
-   }
+ static int peopleFromTheNorthPole = 0;
 
+static bool isValidPassport(string passport)
+{
+if (passport.IndexOf("byr:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("iyr:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("eyr:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("hgt:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("hcl:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("ecl:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("pid:")== -1)
+{
+return false;
+}
+if (passport.IndexOf("cid:")== -1)
+{
+Console.WriteLine("One from the North Pole");
+peopleFromTheNorthPole ++;
+return true;
+}
+return true;
+}
 ```
+
+It's not enough so there are some that I'm missing out somehow.I changed the input to use the input from the example. I saw that it was correct and I tried again with the big input. Aaaand it was correct! Maybe I didn't copied it well. Who knows.
+
+So the next part of the problem is more complex and we have to check more things.  
+
+I'll keep this function because it will make easier to filter the passport that miss any field.
