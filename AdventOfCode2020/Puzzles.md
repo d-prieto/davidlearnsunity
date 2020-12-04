@@ -542,4 +542,86 @@ Today I do have a mouse and set up the computer properly to clean up the documen
 
 It seems that we're about of chopping more inputs, and today is more complex. It's the full passport stuff.
 
-pleas
+In this case in notepad++ I set that I don't like the EOL and extra spaces and that give me a long line that differenciated each subject with two spaces. So I replaced that for a "," and now I have a list of strings I can chop easily.
+
+I wonder which part of that should be programed or not. But it's still done so I think it counts.
+
+I'm making a function to check the passports static so it can be checked out. Also if I didn't make static it didn't work because, I guess I miss objects instances with this kind of strings?
+
+```
+
+Console.WriteLine("Hello, world!");
+Console.WriteLine(inputs[0]);
+string passportToCheck = inputs[0];
+Console.WriteLine(isValidPassport(passportToCheck));
+Console.WriteLine(true);
+}
+static bool isValidPassport(string passport)
+{
+if (passport.IndexOf("byr:")== -1)
+{
+return false;
+}
+return true;
+}
+
+
+```
+
+Now let's try this
+
+```
+int peopleFromTheNorthPole = 0;
+       int validPasssports = 0;
+       string passportToCheck = inputs[0];
+       foreach (passport in inputs)
+       {
+           if (isValidPassport(passport))
+           {
+               validPassports++;
+           }
+       }
+Console.WriteLine(validPasssports);
+ Console.WriteLine(peopleFromTheNorthPole);
+   }
+
+  static bool isValidPassport(string passport)
+   {
+       if (passport.IndexOf("byr:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("iyr:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("eyr:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("hgt:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("hcl:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("ecl:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("pid:")== -1)
+       {
+       return false;
+       }
+       if (passport.IndexOf("cid:")== -1)
+       {
+       Console.WriteLine("One from the North Pole");
+       peopleFromTheNorthPole ++;
+       return false;
+       }
+       return true;
+   }
+
+```
