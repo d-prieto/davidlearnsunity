@@ -730,3 +730,61 @@ class Program {
 }
 
 ```
+
+
+## Day 5
+
+This puzzle seems more interesting!
+
+I learn that C# doesn't allow something like 2 ^ 3 to make powers of 2. = (
+
+I can try to use Math.Pow and pray. And you need to cast int into double. Siiiigh. I don't like doubles.
+
+This is what I'm trying to do and it doesn't work
+
+```
+row =  2^(6-something);
+
+```
+
+if you try
+
+```
+
+row +=  Math.Pow(2,(6-boardingcharacter));
+
+```
+
+It says that 2 is not a double. Sigh. I think is faster to make a for loop for this.
+
+So this is the program for the rows
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        var inputs = new List<String>();
+        string boardingpass="BBFFBBFRLL";
+		int row=0;
+        for (int letterToCheck=0; letterToCheck<=6; letterToCheck++)
+        {
+             Console.WriteLine(boardingpass[letterToCheck]);
+            if(boardingpass[letterToCheck].Equals('B'))
+			{
+				int addingNumber = 1;
+				for (int index=0; index<=(5-letterToCheck); index++)
+				{
+				addingNumber = addingNumber * 2;
+				}
+				row += addingNumber;
+			}
+        }
+        Console.WriteLine(row);
+
+
+    }
+}
+```
