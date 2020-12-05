@@ -788,3 +788,165 @@ class Program {
     }
 }
 ```
+
+Now let's get to the columns and the seatID!
+
+This seems to work:
+
+```
+
+int row=0;
+
+    for (int letterToCheck=0; letterToCheck<=6; letterToCheck++)
+    {
+        if(boardingpass[letterToCheck].Equals('B'))
+  {
+    int addingNumber = 1;
+    for (int index=0; index<=(5-letterToCheck); index++)
+    {
+    addingNumber = addingNumber * 2;
+    }
+    row += addingNumber;
+  }
+    }
+   // Console.WriteLine(row);
+    int collumn = 0;
+    for (int letterToCheck=7; letterToCheck<=9; letterToCheck++)
+    {
+        if(boardingpass[letterToCheck].Equals('R'))
+  {
+    int addingNumber = 1;
+    for (int index=0; index<=(8-letterToCheck); index++)
+    {
+    addingNumber = addingNumber * 2;
+    }
+    collumn += addingNumber;
+  }
+    }
+//	Console.WriteLine(collumn);
+int seatID = ( row * 8 ) + collumn;
+//	Console.WriteLine(seatID);
+if (seatID > maxSeatID) {
+    maxSeatID = seatID;
+}
+
+```
+And it worked!
+
+Here is the full code (except the input)
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        var inputs = new List<String>()
+...
+        int maxSeatID = 0;
+
+		foreach (string boardingpass in inputs) {
+			int row=0;
+
+        for (int letterToCheck=0; letterToCheck<=6; letterToCheck++)
+        {
+            if(boardingpass[letterToCheck].Equals('B'))
+			{
+				int addingNumber = 1;
+				for (int index=0; index<=(5-letterToCheck); index++)
+				{
+				addingNumber = addingNumber * 2;
+				}
+				row += addingNumber;
+			}
+        }
+       // Console.WriteLine(row);
+        int collumn = 0;
+        for (int letterToCheck=7; letterToCheck<=9; letterToCheck++)
+        {
+            if(boardingpass[letterToCheck].Equals('R'))
+			{
+				int addingNumber = 1;
+				for (int index=0; index<=(8-letterToCheck); index++)
+				{
+				addingNumber = addingNumber * 2;
+				}
+				collumn += addingNumber;
+			}
+        }
+	//	Console.WriteLine(collumn);
+		int seatID = ( row * 8 ) + collumn;
+	//
+		if (seatID > maxSeatID) {
+		    maxSeatID = seatID;
+		}
+
+		}
+		Console.WriteLine(maxSeatID);
+    }
+}
+
+```
+
+The second part I think of it as a map. I don't really get how is it. So I'm going to make a "map" and take down every seat that I find. Then print the rest.
+
+This is the code:
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        var inputs = new List<String>()
+
+        int[,] planeMap = new int[128,8];
+
+
+		foreach (string boardingpass in inputs) {
+			int row=0;
+
+        for (int letterToCheck=0; letterToCheck<=6; letterToCheck++)
+        {
+            if(boardingpass[letterToCheck].Equals('B'))
+			{
+				int addingNumber = 1;
+				for (int index=0; index<=(5-letterToCheck); index++)
+				{
+				addingNumber = addingNumber * 2;
+				}
+				row += addingNumber;
+			}
+        }
+       // Console.WriteLine(row);
+        int collumn = 0;
+        for (int letterToCheck=7; letterToCheck<=9; letterToCheck++)
+        {
+            if(boardingpass[letterToCheck].Equals('R'))
+			{
+				int addingNumber = 1;
+				for (int index=0; index<=(8-letterToCheck); index++)
+				{
+				addingNumber = addingNumber * 2;
+				}
+				collumn += addingNumber;
+			}
+        }
+	//	Console.WriteLine(collumn);
+	//	int seatID = ( row * 8 ) + collumn;
+		planeMap[row,collumn]=1;
+
+		}
+        for(int i=0; i<=127; i++) {
+			for (int j=0; j<7; j++)
+			{
+				Console.Write(planetMap[i,j]);
+			}
+			Console.WriteLine(planetMap[i,7]);
+		}
+	}
+}
+```
+
+And it gives me a visual impresion of the plane. As the puzzle says there is a 0 in between a lot of 1 and there are rows of 0 at the beginning and at the end. Cool. Now let's iterate diferently = )
