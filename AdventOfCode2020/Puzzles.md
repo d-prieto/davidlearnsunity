@@ -1015,4 +1015,66 @@ Today is about of getting a string and count how many different letters it has.
 I was thinking of using a map, but I think I'm making a string of different letters and count it.
 
 
-For the input as other days, since c# doesn't pair well with strings with different lines, I use notepad++ and substitute the end of the line (EOL) with spaces. Then spaces differenciates several inputs and double spaces different groups. 
+For the input as other days, since c# doesn't pair well with strings with different lines, I use notepad++ and substitute the end of the line (EOL) with spaces. Then spaces differenciates several inputs and double spaces different groups.
+
+This is the code where I write every letter I receive and I exclude the spaces.
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+"abc","a b c","ab ac","a a a a","b"};
+int questionsAnsweredYes =0;
+foreach (string input in inputs){
+	for (int i=0; i< input.Length; i++)
+	{
+	if (input[i].Equals(' ')){
+		continue;
+	}
+		Console.WriteLine(input[i]);
+	}
+}
+    }
+}
+
+```
+
+
+And this program seems to work!
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"abc","a b c","ab ac","a a a a","b"};
+		int questionsAnsweredYes =0;
+		foreach (string input in inputs){
+			string questionsAnswered = "";
+				for (int i=0; i< input.Length; i++)
+				{
+					if (input[i].Equals(' ')){
+						continue;
+					}
+					if (questionsAnswered.IndexOf(input[i]) == -1)
+					{
+						questionsAnswered = questionsAnswered +	input[i];
+					}
+				}
+			questionsAnsweredYes += questionsAnswered.Length;
+			}
+		Console.WriteLine(questionsAnsweredYes);
+	}
+}
+
+```
+
+Let's try the full input! Works! Yay, now the next part. Ok, it seems that I have to make another aproach for this.
