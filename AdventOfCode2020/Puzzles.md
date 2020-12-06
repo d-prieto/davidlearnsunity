@@ -950,3 +950,69 @@ class Program {
 ```
 
 And it gives me a visual impresion of the plane. As the puzzle says there is a 0 in between a lot of 1 and there are rows of 0 at the beginning and at the end. Cool. Now let's iterate diferently = )
+
+And it works!
+
+```
+
+int[,] planeMap = new int[128,8];
+
+
+foreach (string boardingpass in inputs) {
+int row=0;
+
+for (int letterToCheck=0; letterToCheck<=6; letterToCheck++)
+{
+    if(boardingpass[letterToCheck].Equals('B'))
+{
+int addingNumber = 1;
+for (int index=0; index<=(5-letterToCheck); index++)
+{
+addingNumber = addingNumber * 2;
+}
+row += addingNumber;
+}
+}
+// Console.WriteLine(row);
+int collumn = 0;
+for (int letterToCheck=7; letterToCheck<=9; letterToCheck++)
+{
+    if(boardingpass[letterToCheck].Equals('R'))
+{
+int addingNumber = 1;
+for (int index=0; index<=(8-letterToCheck); index++)
+{
+addingNumber = addingNumber * 2;
+}
+collumn += addingNumber;
+}
+}
+//	Console.WriteLine(collumn);
+//	int seatID = ( row * 8 ) + collumn;
+planeMap[row,collumn]=1;
+
+}
+for(int i=0; i<=127; i++) {
+for (int j=1; j<6; j++)
+{
+if ((planeMap[i,j] == 0) && (planeMap[i,j-1] == 1) && (planeMap[i,j+1]==1))
+{
+  int seatID = ( i * 8 ) + j;
+  Console.WriteLine(seatID);
+}
+}
+
+}
+}
+}
+
+```
+
+## Sixth day
+
+Today is about of getting a string and count how many different letters it has.
+
+I was thinking of using a map, but I think I'm making a string of different letters and count it.
+
+
+For the input as other days, since c# doesn't pair well with strings with different lines, I use notepad++ and substitute the end of the line (EOL) with spaces. Then spaces differenciates several inputs and double spaces different groups. 
