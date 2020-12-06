@@ -1077,4 +1077,66 @@ class Program {
 
 ```
 
-Let's try the full input! Works! Yay, now the next part. Ok, it seems that I have to make another aproach for this.
+Let's try the full input! Works! Yay, now the next part. Ok, it seems that I have to make another approach for this.
+
+This is what I'm going to try:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"abc","a b c","ab ac","a a a a","b"};
+		int questionsAnsweredYes =0;
+		foreach (string input in inputs){
+			int start = 0;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var answers = new List<String>();
+			while((start <= end) && (at > -1))
+			{
+				string answer;
+				// start+count must be a position within -str-.
+				count = end - start;
+				at = input.IndexOf(" ", start, count);
+				if (at == -1) {
+					answer=input.Substring(start);
+					answers.Add(answer);
+
+					break;
+				}
+				else {
+					answer=input.Substring(start,at-start);
+					answers.Add(answer);
+
+					start = at+1;
+				}
+				answers.Add(answer);
+			}
+        string commonAnswer = answers[0];
+        foreach (string answer in answers)
+		{
+		    for (int i =0; i< commonAnswer.Length; i++)
+		    {
+		        if (answer.IndexOf(commonAnswer[i])==-1)
+				 {	     
+					commonAnswer = commonAnswer.Remove(i,1);
+				 }
+		    }
+		}
+		questionsAnsweredYes += commonAnswer.Length;
+	}
+Console.WriteLine(questionsAnsweredYes);
+
+}
+}
+
+
+```
+
+And the second part doesn't work. It's too high and I think it's because when I remove characters the index varies. Let's try with a while intstead.
