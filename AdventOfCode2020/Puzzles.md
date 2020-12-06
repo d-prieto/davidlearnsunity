@@ -1139,4 +1139,68 @@ Console.WriteLine(questionsAnsweredYes);
 
 ```
 
-And the second part doesn't work. It's too high and I think it's because when I remove characters the index varies. Let's try with a while intstead.
+And the second part doesn't work. It's too high and I think it's because when I remove characters the index varies. Let's try with a while instead.
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>()
+		int questionsAnsweredYes =0;
+		foreach (string input in inputs){
+			int start = 0;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var answers = new List<String>();
+			while((start <= end) && (at > -1))
+			{
+				string answer;
+				// start+count must be a position within -str-.
+				count = end - start;
+				at = input.IndexOf(" ", start, count);
+				if (at == -1) {
+					answer=input.Substring(start);
+					answers.Add(answer);
+
+					break;
+				}
+				else {
+					answer=input.Substring(start,at-start);
+					answers.Add(answer);
+
+					start = at+1;
+				}
+				answers.Add(answer);
+			}
+        string commonAnswer = answers[0];
+        foreach (string answer in answers)
+		{
+			int i = 0;
+			while(i<= commonAnswer.Length)
+		    {
+		        if (answer.IndexOf(commonAnswer[i])==-1)
+				 {	     
+					commonAnswer = commonAnswer.Remove(i,1);
+				 }
+				else {
+					i++;
+				}
+		    }
+		}
+		Console.WriteLine(commonAnswer);
+		questionsAnsweredYes += commonAnswer.Length;
+	}
+Console.WriteLine(questionsAnsweredYes);
+
+}
+}
+
+
+```
+
+And this gives me a slightly lower number and it works! yay!
