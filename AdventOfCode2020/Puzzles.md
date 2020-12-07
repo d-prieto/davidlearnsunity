@@ -1357,3 +1357,479 @@ class Program {
 It doesn't colect the colors properly. But it collects _something_
 
 ![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura004.JPG)
+
+So let's go little by little. If we have a string "no other bags." it means that there is nothing to add. So I change this here and it works.
+
+```
+while((startOfContainedColors <= end) && (at > -1)){
+    if (input.IndexOf("no other bags.") != -1){
+        break;
+    }
+
+  count = end - startOfContainedColors;
+  at = input.IndexOf("bag", startOfContainedColors, count);
+  if (at == -1) {
+    break;
+  }
+    string containedColour = input.Substring(startOfContainedColors, at-startOfContainedColors);
+  containedColours.Add(containedColour);
+  startOfContainedColors = at+1;
+
+```
+
+This seems to save the colors properly (with a last space)
+
+```
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new List<String>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",colorToTrim.IndexOf(" ")+1)+1
+				);
+				containedColours.Add(containedColour);
+				startOfContainedColors = at+1;
+
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+    Console.WriteLine("Color "+entry.Value.name+". Contained colours:");
+    foreach(string colorInside in entry.Value.colorsInside)
+    {
+        Console.WriteLine(colorInside);
+    }
+}
+}
+}
+
+
+```
+
+I put it that way with colorToTrim because to do it in just oneliner seemed _TOO MUCH_
+
+Now time to make lists.
+
+In this exercise if a bag cannot contain other colours and is not the Shiny Gold. Then is a color that I don't want to count.  
+
+So I'm making 3 lists.
+
+List of colors that I'm not interested at all (with no other colors inside)
+List of colors that I do know that lead to Shiny Gold (starting with shiny gold)
+List of colors that I want to look for.
+
+With this I verify that the list is filled properly (at least the second one)
+
+```
+foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+if(entry.Key.Equals("shiny gold")){
+shinyGoldBags.Add(entry.Value);
+continue;
+}
+}
+Console.WriteLine(shinyGoldBags.Count);
+}
+}
+
+```
+
+
+I think I don't need 3 list but I can make 2. For now this is how I fill them using the dictionary:
+
+```
+
+List <BagType> bagsToLookFor = new List<BagType>();
+List <BagType> shinyGoldBags = new List<BagType>();
+
+foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+if(entry.Key.Equals("shiny gold")){
+shinyGoldBags.Add(entry.Value);
+continue;
+}
+if(entry.Value.colorsInside.Count != 0)
+{
+bagsToLookFor.Add(entry.Value);
+}
+}
+int bagsToLookForCounter = bagsToLookFor.Count;
+Console.WriteLine("Done first iteration. Number of Shiny Gold leading colors: "+shinyGoldBags.Count);
+Console.WriteLine("Number of bags to look for: "+bagsToLookForCounter);
+
+```
+
+Now it seems that I have to use the .Find method that needs a complex predicate. [This kind of stuff](https://docs.microsoft.com/es-es/dotnet/api/system.collections.generic.list-1.find?view=net-5.0#System_Collections_Generic_List_1_Find_System_Predicate__0__)
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura005.JPG)
+
+Ok. This doesn't work. It seems that during an iteration you cannot add or remove things from a list you're iterating!
+
+```
+
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		List <BagType> bagsToLookFor = new List<BagType>();
+		List <BagType> shinyGoldBags = new List<BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new List<String>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",colorToTrim.IndexOf(" ")+1)+1
+				).Trim();
+				containedColours.Add(containedColour);
+				startOfContainedColors = at+1;
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		Console.WriteLine("Done formating the dictionary");
+				foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+    if(entry.Key.Equals("shiny gold")){
+		shinyGoldBags.Add(entry.Value);
+		continue;
+	}
+	if(entry.Value.colorsInside.Count != 0)
+	{
+	    bagsToLookFor.Add(entry.Value);
+	}
+	}
+    int bagsToLookForCounter = bagsToLookFor.Count;
+		Console.WriteLine("Done first iteration. Number of Shiny Gold leading colors: "+shinyGoldBags.Count);
+		Console.WriteLine("Number of bags to look for: "+bagsToLookForCounter);
+	bool stopLooking = false;
+	while (stopLooking == false){
+	    foreach (BagType bag in bagsToLookFor) {
+			foreach (BagType goldenBag in shinyGoldBags){
+				if(bag.colorsInside.Exists(x => x.Equals(goldenBag.name)))
+				{
+					Console.WriteLine("Found something"+bag.name+goldenBag.name);
+					shinyGoldBags.Add(bag);
+					bagsToLookFor.Remove(bag);
+				}
+			}
+		}
+		Console.WriteLine("While loop done. We came from "+bagsToLookForCounter+"to "+bagsToLookFor.Count);
+		if (bagsToLookFor.Count == bagsToLookForCounter){
+		stopLooking = true;
+	    }
+		bagsToLookForCounter = bagsToLookFor.Count;
+	}
+    Console.WriteLine("Done iteration. Number of Shiny Gold leading colors: "+shinyGoldBags.Count);
+}
+}
+
+
+```
+
+So let's try something different. Maybe using other objects (like the dictionary that I'm not using too much)
+
+Now I realize that the shinyGold does not lead to a shiny gold in the example so I'm counting it down. At the end. xD
+
+```
+
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		List <BagType> bagsToLookFor = new List<BagType>();
+		List <BagType> shinyGoldBags = new List<BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new List<String>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",colorToTrim.IndexOf(" ")+1)+1
+				).Trim();
+				containedColours.Add(containedColour);
+				startOfContainedColors = at+1;
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		Console.WriteLine("Done formating the dictionary");
+				foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+    if(entry.Key.Equals("shiny gold")){
+		shinyGoldBags.Add(entry.Value);
+		continue;
+	}
+	if(entry.Value.colorsInside.Count != 0)
+	{
+	    bagsToLookFor.Add(entry.Value);
+	}
+	}
+    int bagsToLookForCounter = bagsToLookFor.Count;
+		Console.WriteLine("Done first iteration. Number of Shiny Gold leading colors: "+shinyGoldBags.Count);
+		Console.WriteLine("Number of bags to look for: "+bagsToLookForCounter);
+	bool stopLooking = false;
+	while (stopLooking == false){
+		List <BagType> bagsToChange = new List<BagType>();
+	    foreach (BagType bag in bagsToLookFor) {
+			foreach (BagType goldenBag in shinyGoldBags){
+				if(bag.colorsInside.Exists(x => x.Equals(goldenBag.name)))
+				{
+					Console.WriteLine("Found something: "+bag.name+" leads to "+goldenBag.name);
+					bagsToChange.Add(bag);
+					break;
+				}
+			}
+		}
+		foreach (BagType bag in bagsToChange) {
+				shinyGoldBags.Add(bag);
+				bagsToLookFor.Remove(bag);
+		}
+		Console.WriteLine("While loop done. We came from "+bagsToLookForCounter+"to "+bagsToLookFor.Count);
+		if (bagsToLookFor.Count == bagsToLookForCounter){
+		stopLooking = true;
+	    }
+		bagsToLookForCounter = bagsToLookFor.Count;
+	}
+    Console.WriteLine("Done iteration. Number of Shiny Gold leading colors: "+(shinyGoldBags.Count-1));
+}
+}
+
+
+```
+
+Now let's try the big output.
+
+Nah, does not work. Too high. Ah. I didn't count down the gold bag. DUH.
+
+This is the correct code:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		List <BagType> bagsToLookFor = new List<BagType>();
+		List <BagType> shinyGoldBags = new List<BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new List<String>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",colorToTrim.IndexOf(" ")+1)+1
+				).Trim();
+				containedColours.Add(containedColour);
+				startOfContainedColors = at+1;
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		Console.WriteLine("Done formating the dictionary");
+				foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+    if(entry.Key.Equals("shiny gold")){
+		shinyGoldBags.Add(entry.Value);
+		continue;
+	}
+	if(entry.Value.colorsInside.Count != 0)
+	{
+	    bagsToLookFor.Add(entry.Value);
+	}
+	}
+    int bagsToLookForCounter = bagsToLookFor.Count;
+		Console.WriteLine("Done first iteration. Number of Shiny Gold leading colors: "+shinyGoldBags.Count);
+		Console.WriteLine("Number of bags to look for: "+bagsToLookForCounter);
+	bool stopLooking = false;
+	while (stopLooking == false){
+		List <BagType> bagsToChange = new List<BagType>();
+	    foreach (BagType bag in bagsToLookFor) {
+			foreach (BagType goldenBag in shinyGoldBags){
+				if(bag.colorsInside.Exists(x => x.Equals(goldenBag.name)))
+				{
+					Console.WriteLine("Found something: "+bag.name+" leads to "+goldenBag.name);
+					bagsToChange.Add(bag);
+					break;
+				}
+			}
+		}
+		foreach (BagType bag in bagsToChange) {
+				shinyGoldBags.Add(bag);
+				bagsToLookFor.Remove(bag);
+		}
+		Console.WriteLine("While loop done. We came from "+bagsToLookForCounter+"to "+bagsToLookFor.Count);
+		if (bagsToLookFor.Count == bagsToLookForCounter){
+		stopLooking = true;
+	    }
+		bagsToLookForCounter = bagsToLookFor.Count;
+	}
+    Console.WriteLine("Done iteration. Number of Shiny Gold leading colors: "+(shinyGoldBags.Count-1));
+}
+}
+
+
+```
+
+### Part 2
+
+Now go the other way arouuuund
