@@ -1222,3 +1222,48 @@ If they lead to a color that leads to a shiny gold bag, I'll flag them.
 Then I'll compare if the number of colors that lead to a shiny gold bag increases. If it doesn't, that means that we're finished.
 
 Now good luck to me xD
+
+I'm using classes and dictionaries and I feel like this dog:
+
+```
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, Element>();
+		foreach (string input in inputs) {
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags"));
+			bagTypes.Add(newBag.getName(),newBag);
+		}
+
+}
+
+
+}
+
+
+
+```
+At least for now it seems to work. 
