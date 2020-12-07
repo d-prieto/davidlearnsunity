@@ -1204,3 +1204,21 @@ Console.WriteLine(questionsAnsweredYes);
 ```
 
 And this gives me a slightly lower number and it works! yay!
+
+## Seventh day
+
+Oh MY.
+
+Ok, I think that this needs a dictionary or something more complex. My idea is this.
+
+Create a dictionary where key: color values: colors inside and a flag boolean if this leads to a shiny gold bag.
+
+First I'm going to build the dictionary. Then iterate it looking for any shiny gold. If I find it, I'll flag them as they lead to a shiny gold bag.
+
+Then I will take all the items that don't have that flag and look in them of the bags that they are flagged as they lead to a shiny gold bag.
+
+If they lead to a color that leads to a shiny gold bag, I'll flag them.
+
+Then I'll compare if the number of colors that lead to a shiny gold bag increases. If it doesn't, that means that we're finished.
+
+Now good luck to me xD
