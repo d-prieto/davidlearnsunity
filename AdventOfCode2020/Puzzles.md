@@ -37,6 +37,8 @@ Console.WriteLine("Rounds done: "+rounds);
 
 ```
 
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura001.JPG)
+
 The counter "round" goes up to 19900, so that's a long for loop.
 
 If I stop it when it finds the solution, the round goes 17755 (not a big difference).
@@ -546,6 +548,10 @@ In this case in notepad++ I set that I don't like the EOL and extra spaces and t
 
 I wonder which part of that should be programed or not. But it's still done so I think it counts.
 
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura002.JPG)
+
+_lots of inputs_
+
 I'm making a function to check the passports static so it can be checked out. Also if I didn't make static it didn't work because, I guess I miss objects instances with this kind of strings?
 
 ```
@@ -951,6 +957,8 @@ class Program {
 
 And it gives me a visual impresion of the plane. As the puzzle says there is a 0 in between a lot of 1 and there are rows of 0 at the beginning and at the end. Cool. Now let's iterate diferently = )
 
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura003.JPG)
+
 And it works!
 
 ```
@@ -1347,3 +1355,5 @@ class Program {
 ```
 
 It doesn't colect the colors properly. But it collects _something_
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura004.JPG)
