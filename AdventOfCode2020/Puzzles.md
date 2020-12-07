@@ -1266,4 +1266,84 @@ class Program {
 
 
 ```
-At least for now it seems to work. 
+At least for now it seems to work. And now let's [iterate the dictionary](https://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary)
+
+and just to test this is the code to make the iteration:
+
+```
+foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+Console.WriteLine(entry.Value.name);
+}
+```
+
+Now let's try to add the contained colours!
+
+This is the first try:
+
+```
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public bool leadsToShinyGoldBag {get; set;}
+   public List<string> colorsInside {get; set;}
+
+
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new List<string>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new List<String>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+			    string containedColour = input.Substring(startOfContainedColors, at-startOfContainedColors);
+				containedColours.Add(containedColour);
+				startOfContainedColors = at+1;
+
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		foreach(KeyValuePair<string, BagType> entry in bagTypes)
+{
+    Console.WriteLine("Color "+entry.Value.name+". Contained colours:");
+    foreach(string colorInside in entry.Value.colorsInside)
+    {
+        Console.WriteLine(colorInside);
+    }
+}
+}
+}
+```
+
+It doesn't colect the colors properly. But it collects _something_
