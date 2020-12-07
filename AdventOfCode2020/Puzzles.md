@@ -1833,3 +1833,164 @@ class Program {
 ### Part 2
 
 Now go the other way arouuuund
+
+So first let's change the bagTypeClass to fit this problem:
+
+```
+public class BagType
+{
+   public string name {get; set;}
+   public Dictionary<string, int>() colorsInside {get; set;}
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new Dictionary<string, int>();
+   }
+}
+```
+
+Then how we fill the dictionary.
+
+The parsing is hell. Did you know that?
+
+```
+
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public Dictionary<string, int> colorsInside {get; set;}
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new Dictionary<string, int>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new Dictionary<string, int>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+				int firstSpace = colorToTrim.IndexOf(" ");
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",firstSpace+1)+1
+				).Trim();
+				int numberOfBags = Int32.Parse(colorToTrim.Substring(firstSpace+1,1).Trim());
+				containedColours.Add(containedColour,numberOfBags);
+				startOfContainedColors = at+1;
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		Console.WriteLine("Done formating the dictionary");
+}
+}
+
+
+```
+
+It's too late, I cannot do it u.u
+
+
+Here is what I've done:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+public class BagType
+{
+   public string name {get; set;}
+   public Dictionary<string, int> colorsInside {get; set;}
+   public BagType (string code) : this()
+   {
+       name = code;
+   }
+   public BagType()
+   {
+      this.colorsInside = new Dictionary<string, int>();
+   }
+}
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>() {
+		"light red bags contain 1 bright white bag, 2 muted yellow bags.","dark orange bags contain 3 bright white bags, 4 muted yellow bags.","bright white bags contain 1 shiny gold bag.","muted yellow bags contain 2 shiny gold bags, 9 faded blue bags.","shiny gold bags contain 1 dark olive bag, 2 vibrant plum bags.","dark olive bags contain 3 faded blue bags, 4 dotted black bags.","vibrant plum bags contain 5 faded blue bags, 6 dotted black bags.","faded blue bags contain no other bags.","dotted black bags contain no other bags."
+		};
+		Dictionary <string, BagType> bagTypes = new Dictionary<string, BagType>();
+		foreach (string input in inputs) {
+
+			BagType newBag = new BagType(input.Substring(0,input.IndexOf(" bags")));
+			int startOfContainedColors = input.IndexOf(" contain ")+6;
+			int count = 0;
+			int at = 0;
+			int end = input.Length;
+			var containedColours = new Dictionary<string, int>();
+
+			while((startOfContainedColors <= end) && (at > -1)){
+			    if (input.IndexOf("no other bags.") != -1){
+			        break;
+			    }
+
+				count = end - startOfContainedColors;
+				at = input.IndexOf("bag", startOfContainedColors, count);
+				if (at == -1) {
+					break;
+				}
+				string colorToTrim = input.Substring(startOfContainedColors, at-startOfContainedColors);
+				int firstSpace = colorToTrim.IndexOf(" ");
+			    string containedColour = colorToTrim.Substring(colorToTrim.IndexOf(" ",firstSpace+1)+1
+				).Trim();
+				int numberOfBags = Int32.Parse(colorToTrim.Substring(firstSpace+1,1).Trim());
+				containedColours.Add(containedColour,numberOfBags);
+				startOfContainedColors = at+1;
+
+			}
+			newBag.colorsInside = containedColours;
+			bagTypes.Add(newBag.name,newBag);
+		}
+		Console.WriteLine("Done formating the dictionary");
+		BagType shinyBag = bagTypes["shiny gold"];
+		bool stopLooking == false;
+		while (stopLooking == false){
+			stopLooking=true;
+		}
+
+}
+}
+
+
+```
