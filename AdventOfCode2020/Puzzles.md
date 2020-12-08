@@ -1994,3 +1994,68 @@ class Program {
 
 
 ```
+
+## Eighth Day
+
+
+Today it seems that can be easier. So let's try to parse. The idea is to make a list including indexes. And when the index is repeated. BLAM.
+
+So first let's parse the input (also easier today. )
+
+This is the first try:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<String>()
+		{
+		    "nop +0 ","acc +1 ","jmp +4 ","acc +3 ","jmp -3 ","acc -99 ","acc +1 ","jmp -4 ","acc +6"
+		};
+	    var indexesVisited = new List<int>();
+	    bool stopRunning = false;
+		int accessingLine = 0;
+		int accumulator = 0;
+	    while (stopRunning == false) {
+			if (indexesVisited.IndexOf(accessingLine) != -1)
+			{
+				stopRunning = true;
+				break;
+			}
+			indexesVisited.Add(accessingLine);
+			if (inputs[accessingLine].IndexOf("nop") != -1)
+			{
+				accessingLine++;
+				continue;
+			}
+			int accessingNumber = Int32.Parse(inputs[accessingLine].Substring(inputs[accessingLine].IndexOf(" ")));
+			if (inputs[accessingLine].IndexOf("jmp") != -1)
+			{
+				accessingLine = accessingLine + accessingNumber;
+				continue;
+			}
+			if (inputs[accessingLine].IndexOf("acc") != -1)
+			{
+				accumulator = accumulator + accessingNumber;
+        accessingLine++;
+				continue;
+			}
+
+	    }
+		Console.WriteLine("Accumulator variable: "+accumulator);
+    }
+}
+
+```
+
+It doesn't work with the example. But at least I can work with it and it doesn't explode!
+
+Time to add lots of Console.WriteLine
+
+And I missed when the index is "acc" that I have to move the accessing line (now corrected in the code so I don't repeat it because it's one line). Will it work?
+
+It does! Yay, only one hour of coding. Yay. 
