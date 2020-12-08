@@ -2058,4 +2058,200 @@ Time to add lots of Console.WriteLine
 
 And I missed when the index is "acc" that I have to move the accessing line (now corrected in the code so I don't repeat it because it's one line). Will it work?
 
-It does! Yay, only one hour of coding. Yay. 
+It does! Yay, only one hour of coding. Yay.
+
+### Second Puzzle
+
+Ooookey. So this is the thing that we have to iterate until we find the changes that makes the loop go over.
+
+So for each instruction we evaluate if its a nop or a jump
+
+If it's exactly a nop +0 we skip (because Jump+0 infinite loop). If it's an acc we skip. Else we test a new list with only that change. (I learned that you cannot change a list while iterating it)
+
+I'm struggling because I think that I don't modify something as I would like to. This is the test code:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<string>()
+		{
+		    "nop +0 ","acc +1 ","jmp +4 ","acc +3 ","jmp -3 ","acc -99 ","acc +1 ","jmp -4 ","acc +6"
+		};
+		var modifiedInputs = new List<string>(inputs);
+	    var indexesVisited = new List<int>();
+	    bool foundGoodInput = false;
+		bool stopRunning;
+		int accumulator = 0;
+		int changingLine = 0;
+		int accessingLine =0;
+		while (foundGoodInput == false) {
+			if (changingLine == inputs.Count) {
+				break;
+			}
+			if (inputs[changingLine].IndexOf("acc") != -1)
+			{
+				changingLine++;
+				continue;
+			}
+			int changingNumber = Int32.Parse(inputs[changingLine].Substring(inputs[changingLine].IndexOf(" ")));
+			Console.WriteLine("Changing number: "+changingNumber);
+			if (changingNumber == 0) {
+				changingLine++;
+				continue;				
+			}
+			if (inputs[changingLine].IndexOf("nop") != -1) {
+				string changedInput = "jmp " + inputs[changingLine].Substring(inputs[changingLine].IndexOf(" "));
+				modifiedInputs[changingLine] = changedInput;
+				changingLine++;
+			}
+			if (inputs[changingLine].IndexOf("jmp") != -1) {
+				string changedInput = "nop " + inputs[changingLine].Substring(inputs[changingLine].IndexOf(" "));
+				modifiedInputs[changingLine] = changedInput;
+				changingLine++;
+			}
+
+			stopRunning = false;
+	    while (stopRunning == false) {
+			Console.WriteLine("accessingLine variable: "+accessingLine);
+			if (accessingLine == modifiedInputs.Count) {
+				stopRunning = true;
+				foundGoodInput = true;
+				break;
+			}
+			if (indexesVisited.IndexOf(accessingLine) != -1)
+			{
+				stopRunning = true;
+				break;
+			}
+			indexesVisited.Add(accessingLine);
+			if (modifiedInputs[accessingLine].IndexOf("nop") != -1)
+			{
+				accessingLine++;
+				continue;
+			}
+
+			int accessingNumber = Int32.Parse(modifiedInputs[accessingLine].Substring(modifiedInputs[accessingLine].IndexOf(" ")));
+
+			if (modifiedInputs[accessingLine].IndexOf("jmp") != -1)
+			{
+				accessingLine = accessingLine + accessingNumber;
+				continue;
+			}
+			if (modifiedInputs[accessingLine].IndexOf("acc") != -1)
+			{
+				Console.WriteLine("Accumulator variable: "+accumulator);
+				accumulator = accumulator + accessingNumber;
+				accessingLine++;
+				continue;
+			}
+
+	    }
+		if (foundGoodInput == true){
+			break;
+		}
+		//reseting variables
+		accessingLine = 0;
+		accumulator = 0;
+		modifiedInputs = new List<string>(inputs);
+
+		}
+		Console.WriteLine("Accumulator variable: "+accumulator);
+    }
+}
+
+```
+
+I was forgetting to add the reset of the visitedIndex variable so each time the inner loop was shorter and shorter
+
+This is the code without the debugging:
+
+```
+
+var modifiedInputs = new List<string>(inputs);
+    var indexesVisited = new List<int>();
+    bool foundGoodInput = false;
+  bool stopRunning;
+  int accumulator = 0;
+  int changingLine = 0;
+  int accessingLine =0;
+  while (foundGoodInput == false) {
+    if (changingLine == inputs.Count) {
+      break;
+    }
+    if (inputs[changingLine].IndexOf("acc") != -1)
+    {
+      changingLine++;
+      continue;
+    }
+    int changingNumber = Int32.Parse(inputs[changingLine].Substring(inputs[changingLine].IndexOf(" ")));
+    if (changingNumber == 0) {
+      changingLine++;
+      continue;				
+    }
+    if (inputs[changingLine].IndexOf("nop") != -1) {
+      string changedInput = "jmp " + inputs[changingLine].Substring(inputs[changingLine].IndexOf(" "));
+      modifiedInputs[changingLine] = changedInput;
+      changingLine++;
+    }
+    if (inputs[changingLine].IndexOf("jmp") != -1) {
+      string changedInput = "nop " + inputs[changingLine].Substring(inputs[changingLine].IndexOf(" "));
+      modifiedInputs[changingLine] = changedInput;
+      changingLine++;
+    }
+
+    stopRunning = false;
+    while (stopRunning == false) {
+    if (accessingLine == modifiedInputs.Count) {
+      stopRunning = true;
+      foundGoodInput = true;
+      break;
+    }
+    if (indexesVisited.IndexOf(accessingLine) != -1)
+    {
+      stopRunning = true;
+      break;
+    }
+    indexesVisited.Add(accessingLine);
+    if (modifiedInputs[accessingLine].IndexOf("nop") != -1)
+    {
+      accessingLine++;
+      continue;
+    }
+
+    int accessingNumber = Int32.Parse(modifiedInputs[accessingLine].Substring(modifiedInputs[accessingLine].IndexOf(" ")));
+
+    if (modifiedInputs[accessingLine].IndexOf("jmp") != -1)
+    {
+      accessingLine = accessingLine + accessingNumber;
+      continue;
+    }
+    if (modifiedInputs[accessingLine].IndexOf("acc") != -1)
+    {
+      accumulator = accumulator + accessingNumber;
+      accessingLine++;
+      continue;
+    }
+
+    }
+  if (foundGoodInput == true){
+    break;
+  }
+  //reseting variables
+  accessingLine = 0;
+  accumulator = 0;
+  modifiedInputs = new List<string>(inputs);
+  indexesVisited = new List<int>();
+  }
+  Console.WriteLine("Accumulator variable: "+accumulator);
+
+```
+
+Will it work?
+
+It does! Yay!
