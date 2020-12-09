@@ -2255,3 +2255,40 @@ var modifiedInputs = new List<string>(inputs);
 Will it work?
 
 It does! Yay!
+
+## Day 9
+
+Today it seems also simple. Just check 1 by one lot's of more/less simple inputs.
+
+Here I have a code where I just store the preamble.
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+		var inputs = new List<String>() {
+		"1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20 ","21 ","22 ","23 ","24 ","25 ","26 ","70"
+		};
+		int inputTotal = inputs.Count;
+		int checkedInput = 0;
+		bool foundIncorrectNumber = false;
+		var preamble = new List<int>();
+		while ((checkedInput <= inputTotal ) || (foundIncorrectNumber == false)){
+			int numberChecked = Int32.Parse(inputs[checkedInput]);
+			if (preamble.Count<25){
+				preamble.Add(numberChecked);
+				checkedInput++;
+				continue;
+			}
+			break;
+		}
+		Console.WriteLine("IncorrectNumber: "+inputs[checkedInput]);
+    }
+}
+
+```
+
+And now I realize that I can use some code from the first day with those sums of numbers! 
