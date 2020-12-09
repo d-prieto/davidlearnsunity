@@ -2291,4 +2291,181 @@ class Program {
 
 ```
 
-And now I realize that I can use some code from the first day with those sums of numbers! 
+And now I realize that I can use some code from the first day with those sums of numbers!
+
+This code seems to work:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+		var inputs = new List<String>() {
+		"1 ","2 ","3 ","4 ","5 ","6 ","7 ","8 ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20 ","21 ","22 ","23 ","24 ","25 ","26 ","70"
+		};
+		int inputTotal = inputs.Count;
+		int checkedInput = 0;
+		bool foundIncorrectNumber = false;
+		var preamble = new List<int>();
+		while ((checkedInput <= inputTotal ) && (foundIncorrectNumber == false)){
+			int numberChecked = Int32.Parse(inputs[checkedInput]);
+			if (preamble.Count<25){
+				preamble.Add(numberChecked);
+				checkedInput++;
+				continue;
+			}
+			for (var firstNumber = 24; firstNumber >= 0; firstNumber--)
+			{
+			   for (var secondNumber = firstNumber - 1; secondNumber >= 0; secondNumber--)
+				   {
+				   if (preamble[firstNumber]+preamble[secondNumber] == checkedInput ){
+					preamble.Remove(preamble[0]);
+					preamble.Add(numberChecked);
+					checkedInput++;
+					continue;
+				   }
+				   }
+
+			}
+			foundIncorrectNumber = true;
+		}
+		Console.WriteLine("IncorrectNumber: "+inputs[checkedInput]);
+    }
+}
+
+```
+
+So I'm testing with the second example as a test...
+
+Nah, it doesn't work. But this does. Even if it has too much debug
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+		var inputs = new List<String>() {
+		};
+		int inputTotal = inputs.Count;
+		int checkedInput = 0;
+		int preambleSize = 25;
+		bool foundIncorrectNumber = false;
+		var preamble = new List<int>();
+		while ((checkedInput <= inputTotal ) && (foundIncorrectNumber == false)){
+		    foundIncorrectNumber = true;
+			int numberChecked = Int32.Parse(inputs[checkedInput]);
+			if (preamble.Count< preambleSize){
+				Console.WriteLine("checked input just adding: "+inputs[checkedInput]);
+				preamble.Add(numberChecked);
+				checkedInput++;
+				foundIncorrectNumber = false;
+				continue;
+			}
+			Console.WriteLine("checked input: "+inputs[checkedInput]);
+			for (var firstNumber = preambleSize-1; firstNumber >= 0; firstNumber--)
+			{
+
+			   for (var secondNumber = firstNumber - 1; secondNumber >= 0; secondNumber--)
+				   {
+				       Console.WriteLine("first number checking sum: "+preamble[firstNumber]+" second number checking sum: "+preamble[secondNumber]);
+				   if (preamble[firstNumber]+preamble[secondNumber] == numberChecked ){
+				    preamble = new List<int>();
+					for (int i = 0; i<=preambleSize; i++) {
+					    preamble.Add(Int32.Parse(inputs[checkedInput-i]));
+					}
+					checkedInput++;
+					foundIncorrectNumber = false;
+					break;
+				   }
+				   }
+
+			}
+
+		}
+		Console.WriteLine("IncorrectNumber: "+inputs[checkedInput]);
+    }
+}
+
+```
+
+### Second part
+
+For this I'm going to consider the solution of the first problem directly. I don't want to process it again.
+
+This is the firs part (with no solution of the part 1 put)
+
+```
+int inputTotal = inputs.Count;
+int solutionPart1 = NUMBER;
+int checkingPosition = inputs.IndexOf(solutionPart1+" ");
+var consecutiveSum = new List<int>();
+bool foundConsecutiveSum = false;
+while (foundConsecutiveSum == false) {
+  break;
+}
+
+
+```
+
+And this seems to work, but I noticed that the list is not ordered by size so I have to order it to have the solution
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+		var inputs = new List<String>() {
+		};
+		int inputTotal = inputs.Count;
+		int solutionPart1 = x;
+		int checkingPosition = (inputs.IndexOf(solutionPart1+" "))-1;
+		var consecutiveNumbers = new List<int>();
+		int consecutiveSum = 0;
+		bool foundConsecutiveSum = false;
+		while (foundConsecutiveSum == false) {
+
+			for(var i= checkingPosition; i>=0; i--)
+			{
+				int checkingNumber = Int32.Parse(inputs[i]);
+				consecutiveSum += checkingNumber;
+				if (consecutiveSum < solutionPart1) {
+					consecutiveNumbers.Add(checkingNumber);
+					continue;
+				}
+				if (consecutiveSum == solutionPart1) {
+					consecutiveNumbers.Add(checkingNumber);
+					foundConsecutiveSum = true;
+					break;
+				}
+				if (consecutiveSum > solutionPart1) {
+					consecutiveNumbers = new List<int>();
+					consecutiveSum = 0;
+					checkingPosition--;
+					break;
+				}
+			}
+		}
+		foreach (int item in consecutiveNumbers){
+		    Console.WriteLine(item);
+		}
+    }
+}
+
+```
+
+I could find the max and the min with C# but, in this case I will leave it to excel to do that.
+
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura006.JPG)
+
+
+So done!
