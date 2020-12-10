@@ -2469,3 +2469,48 @@ I could find the max and the min with C# but, in this case I will leave it to ex
 
 
 So done!
+
+## Tenth day
+
+When I read this I had a big trouble understanding it. But now it's something like this:
+
+You have an unordered list of numbers. You have to order it and count how many gaps are there of 1 and how many of 3. And multiply both numbers.
+
+So I'm going to order it. Luckily we have list.Sort when the value is comparable. Int are! Yay.
+
+So this is the code. I had to add the value 0 and one 3 to the counter in the end (Because the last gap is between the biggest number and biggest number + 3)
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+		var inputs = new List<int>()
+		{};
+		inputs.Add(0);
+		inputs.Sort();
+		int numberOf1gaps = 0;
+		int numberOf3gaps = 0;
+		for (var index = 0; index < inputs.Count-1; index++)
+		{
+			if(inputs[index+1]-inputs[index] == 1)
+			{
+				numberOf1gaps++;
+			}
+			if(inputs[index+1]-inputs[index] == 3)
+			{
+				numberOf3gaps++;
+			}
+		}
+		numberOf3gaps++;
+		Console.WriteLine("number of 1 gap: "+numberOf1gaps);
+		Console.WriteLine("number of 3 gap: "+numberOf3gaps);
+		int solution1 = numberOf1gaps * numberOf3gaps;
+		Console.WriteLine(solution1);
+}}
+
+```
+
+### Second part
