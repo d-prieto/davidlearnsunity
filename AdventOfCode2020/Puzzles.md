@@ -2514,3 +2514,5 @@ class Program {
 ```
 
 ### Second part
+
+Wow, this one I have no idea how to optimize that counting. I'll give it a thought but if I cannot do it I'll leave it be.
