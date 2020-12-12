@@ -2517,7 +2517,105 @@ class Program {
 
 Wow, this one I have no idea how to optimize that counting. I'll give it a thought but if I cannot do it I'll leave it be.
 
+## Eleventh Day
 
+
+I started this but I didn't finished so let's get back on track!
+
+I have problems with the for to make the matrix to keep on working. Here is the code I have by now:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+	static int howManySeatsAreFullAround (List<string> inputs, int row, int collumn, int gridWidth, int gridHeight)
+	{
+		Console.WriteLine("Row: "+row+" Column"+collumn);
+		int seatsFull =0;
+		for (int y = row -1; y <= row +1;y++)
+		{
+			if (y == -1 || y > gridWidth)
+			{
+				Console.WriteLine("Y skipped");
+				continue;
+			}
+			for (int x = collumn -1; x <= collumn +1 ; x++ )
+			{
+				if (x == -1 || x > gridHeight)
+				{
+					continue;
+				}
+				if (inputs[y][x].Equals('#')){
+					seatsFull++;
+				}
+			}
+		}
+
+		return seatsFull;
+	}
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");    
+
+		var inputs = new List<string>()
+		{
+		"L.LL.LL.LL ","LLLLLLL.LL ","L.L.L..L.. ","LLLL.LL.LL ","L.LL.LL.LL ","L.LLLLL.LL ","..L.L..... ","LLLLLLLLLL ","L.LLLLLL.L ","L.LLLLL.LL"
+		};
+		List<string> lastInputs = new List<string>();
+		List<string> newInputs = new List<string>(inputs);
+		string newRow = "";
+		int occupiedSeatCounter = -1;
+		int newOccupiedSeatCounter =0;
+		int gridWidth = inputs[0].Length-1;
+		int gridHeight = inputs.Count;
+		Console.WriteLine ("GridWidth" + gridWidth + " GridHeight: "+ gridWidth);
+		while (occupiedSeatCounter!=newOccupiedSeatCounter){
+			occupiedSeatCounter = newOccupiedSeatCounter;
+			newOccupiedSeatCounter =0;
+			lastInputs = newInputs;
+			newInputs = new List<string>();
+			for (int row = 0; row < gridHeight; row ++)
+			{
+				for (int column = 0; column < gridWidth; column ++)
+				{
+					switch (lastInputs[row][column])
+					{
+						case 'L':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) ==0)
+							{
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+							}
+							newRow = newRow + "L";
+							break;
+						case '#':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) >4)
+							{
+							newRow = newRow + "L";
+							break;
+							}
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+						default:
+							newRow = newRow + inputs[row][column];
+							break;
+					}
+				}
+				newInputs.Add(newRow);
+			}
+			Console.WriteLine("Round done, seats occupied: " +newOccupiedSeatCounter);
+		}
+		Console.WriteLine(newOccupiedSeatCounter);
+
+	}
+}
+
+```
 
 
 ## Twelfth Day
