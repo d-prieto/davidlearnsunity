@@ -2516,3 +2516,53 @@ class Program {
 ### Second part
 
 Wow, this one I have no idea how to optimize that counting. I'll give it a thought but if I cannot do it I'll leave it be.
+
+
+
+
+## Twelfth Day
+
+I like that twelfth has an f.
+
+So today we have directions. Let's do then a for that checks the letter and the number and does things.
+
+This a short version of that (just with the North command)
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<string>()
+		{
+		 "N50 ", "E30 "
+		};
+		int eastDistance = 0;
+		int northDistance = 0;
+		char directionFacing = 'E';
+		foreach (string input in inputs){
+			char order = input[0];
+			int orderNumber = Int32.Parse(input.Substring(1));
+			switch (order)
+			{
+				case 'N':
+					northDistance += orderNumber;
+					Console.WriteLine("N"+northDistance);
+					break;
+				default:
+				    Console.WriteLine("not understood");
+					break;
+			}
+		}
+
+		Console.WriteLine("northDistance: "+northDistance);
+		Console.WriteLine("eastDistance: "+eastDistance);
+		int manhattanDistance = northDistance + eastDistance;
+    }
+}
+
+```
