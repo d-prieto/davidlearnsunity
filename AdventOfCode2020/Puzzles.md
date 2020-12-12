@@ -2617,6 +2617,332 @@ class Program {
 
 ```
 
+Now the code does the iteration well (it seems that I had to put some restrictions in width and height). But there is something else that it's bugging with the example.
+
+Ah, I didn't purge the newRowvariable so it was getting bigger and bigger eachtime xD
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura007.JPG)
+
+_strings getting loooooong_
+
+And I made it work! yay!
+
+This is the code:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+	static int howManySeatsAreFullAround (List<string> inputs, int row, int collumn, int gridWidth, int gridHeight)
+	{
+	//	Console.WriteLine("Row: "+row+" Column"+collumn);
+		int seatsFull =0;
+		for (int y = row -1; y <= row +1;y++)
+		{
+			if (y == -1 || y >= gridHeight)
+			{
+			//	Console.WriteLine("Y skipped");
+				continue;
+			}
+			for (int x = collumn -1; x <= collumn +1 ; x++ )
+			{
+				if (x == -1 || x >= gridWidth)
+				{
+				  //  Console.WriteLine("X skipped");
+					continue;
+				}
+				if (inputs[y][x].Equals('#')){
+					seatsFull++;
+				}
+			}
+		}
+
+		return seatsFull;
+	}
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");    
+
+		var inputs = new List<string>()
+		{
+		};
+		List<string> lastInputs = new List<string>();
+		List<string> newInputs = new List<string>(inputs);
+		string newRow = "";
+		int occupiedSeatCounter = -1;
+		int newOccupiedSeatCounter =0;
+		int gridWidth = inputs[0].Length-1;
+		int gridHeight = inputs.Count;
+		Console.WriteLine ("GridWidth" + gridWidth + " GridHeight: "+ gridWidth);
+		while (occupiedSeatCounter!=newOccupiedSeatCounter){
+			occupiedSeatCounter = newOccupiedSeatCounter;
+			newOccupiedSeatCounter =0;
+			lastInputs = newInputs;
+			newInputs = new List<string>();
+			for (int row = 0; row < gridHeight; row ++)
+			{
+				for (int column = 0; column < gridWidth; column ++)
+				{
+					switch (lastInputs[row][column])
+					{
+						case 'L':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) ==0)
+							{
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+							}
+							newRow = newRow + "L";
+							break;
+						case '#':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) >4)
+							{
+							newRow = newRow + "L";
+							break;
+							}
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+						default:
+							newRow = newRow + inputs[row][column];
+							break;
+					}
+				}
+				newInputs.Add(newRow);
+				newRow="";
+			}
+			Console.WriteLine("Round done, seats occupied: " +newOccupiedSeatCounter);
+			/*
+			foreach (string input in newInputs){
+			    Console.WriteLine(input);
+			}
+			//*/
+		}
+		Console.WriteLine(newOccupiedSeatCounter);
+
+	}
+}
+
+```
+### Second puzzle
+
+Now the directions. Ok, then I just have to change the visibility options
+
+
+I learned that when you're using for with several variables (integer variables in my case) the second one you must not specify which type of variable it is. It will give you a compile error.
+
+for (int x = 0, y = 3; condition , iterator) it's ok
+
+for (int x = 0, int y = 3; condition , iterator) it's NOT ok
+
+And working with the constrains this is the working code (with lot's of commented debugging stuff that I did)
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+	static int howManySeatsAreFullAround (List<string> inputs, int row, int column, int gridWidth, int gridHeight)
+	{
+		//Console.WriteLine("Row: "+row+" Column"+column);
+		int seatsFull =0;
+		// Down
+		for (int y = row+1; y < gridHeight; y++) {
+		  //  Console.WriteLine("Y: "+y+" gridHeight"+gridHeight);
+			if (y == gridHeight)
+				{
+					break;
+				}
+			if (inputs[y][column].Equals('L')){
+				break;
+				}
+			if (inputs[y][column].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		//	Console.WriteLine("Down");
+		}
+		// Up
+		for (int y = row-1; y >= 0; y--) {
+		  //  Console.WriteLine("Up");
+			if (y == -1)
+				{
+					break;
+				}
+			if (inputs[y][column].Equals('L')){
+				break;
+				}
+			if (inputs[y][column].Equals('#')){
+				seatsFull++;
+				break;
+				}
+
+		}
+		// Right
+		for (int x = column+1; x < gridWidth ; x++ )
+		{
+			if (x == gridWidth)
+				{
+					break;
+				}
+			if (inputs[row][x].Equals('L')){
+				break;
+				}
+			if (inputs[row][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		}
+		// Left
+		for (int x = column-1; x >= 0 ; x-- )
+		{
+			if (x == -1)
+				{
+					break;
+				}			
+			if (inputs[row][x].Equals('L')){
+				break;
+				}
+			if (inputs[row][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		//	Console.WriteLine("Left");
+		}
+		// up left
+		for (int y = row-1, x = column-1; y >= 0 && x >= 0; y--, x--)
+		{
+			if ((y == -1)|| (x==-1))
+				{
+					break;
+				}
+			if (inputs[y][x].Equals('L')){
+				break;
+				}
+			if (inputs[y][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		  //  Console.WriteLine("Up left");
+		}		
+		// up right
+		for (int y = row-1, x = column+1; y >= 0 && x < gridWidth; y--, x++)
+		{
+			if ((y == -1)|| (x== gridWidth))
+				{
+					break;
+				}
+			if (inputs[y][x].Equals('L')){
+				break;
+				}
+			if (inputs[y][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		}			
+
+		// down left
+		for (int y = row+1, x = column-1; y < gridHeight && x >= 0; y++, x--)
+		{
+			if ((y == gridHeight)|| (x==-1))
+				{
+					break;
+				}
+			if (inputs[y][x].Equals('L')){
+				break;
+				}
+			if (inputs[y][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		}			
+		// down right
+		for (int y = row+1, x = column+1; y < gridHeight && x < gridWidth; y++, x++)
+		{
+			if ((y == gridHeight)|| (x== gridWidth))
+				{
+					break;
+				}
+			if (inputs[y][x].Equals('L')){
+				break;
+				}
+			if (inputs[y][x].Equals('#')){
+				seatsFull++;
+				break;
+				}
+		}
+
+		return seatsFull;
+	}
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");    
+
+		var inputs = new List<string>()
+		{
+		};
+		List<string> lastInputs = new List<string>();
+		List<string> newInputs = new List<string>(inputs);
+		string newRow = "";
+		int occupiedSeatCounter = -1;
+		int newOccupiedSeatCounter =0;
+		int gridWidth = inputs[0].Length-1;
+		int gridHeight = inputs.Count;
+		Console.WriteLine ("GridWidth" + gridWidth + " GridHeight: "+ gridWidth);
+		while (occupiedSeatCounter!=newOccupiedSeatCounter){
+			occupiedSeatCounter = newOccupiedSeatCounter;
+			newOccupiedSeatCounter =0;
+			lastInputs = newInputs;
+			newInputs = new List<string>();
+			for (int row = 0; row < gridHeight; row ++)
+			{
+				for (int column = 0; column < gridWidth; column ++)
+				{
+					switch (lastInputs[row][column])
+					{
+						case 'L':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) ==0)
+							{
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+							}
+							newRow = newRow + "L";
+							break;
+						case '#':
+							if (howManySeatsAreFullAround(lastInputs, row, column, gridWidth, gridHeight) >=5)
+							{
+							newRow = newRow + "L";
+							break;
+							}
+							newRow = newRow + "#";
+							newOccupiedSeatCounter ++;
+							break;
+						default:
+							newRow = newRow + inputs[row][column];
+							break;
+					}
+				}
+				newInputs.Add(newRow);
+				newRow="";
+			}
+			Console.WriteLine("Round done, seats occupied: " +newOccupiedSeatCounter);
+			/*
+			foreach (string input in newInputs){
+			    Console.WriteLine(input);
+			}
+			//*/
+		}
+		Console.WriteLine(newOccupiedSeatCounter);
+
+	}
+}
+
+```
 
 ## Twelfth Day
 
