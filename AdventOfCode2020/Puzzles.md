@@ -3408,4 +3408,11 @@ class Program {
 
 ```
 
-It takes... some time. I hope that double number works. 
+It takes... some time. I hope that double number works.
+
+
+Ok, I added this little code to check if the loop still works and it seems that given some point it stops.
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura008.JPG)
+
+Um. 
