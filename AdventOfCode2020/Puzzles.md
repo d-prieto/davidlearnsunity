@@ -3211,3 +3211,16 @@ class Program {
 ```
 
 For the turns I had to made the drawing to turn vectors properly and use a temporary variable. I don't know if there is a more clever way to do that.
+
+
+## Thirteenth
+
+Today I'm not going to bother to convert the input with the notepad++, I'm going to do it (in the first puzzle, the second I guess that I'll have to use those X) by hand. 
+
+And it seems that today we're going to use module operator (%)
+
+For example, if the bus departs at 5,10,15 and the early point of wait is 23 you will have to wait 2 minutes (to take the 25 round). You can say that number is 5-(25%5), with a condition that if the module is 0, the time to wait is 0!
+
+I'm going to cheat and try that number just in case.
+
+Nah, that would be too easy. But now I have something less to code.
