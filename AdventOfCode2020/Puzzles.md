@@ -3213,7 +3213,7 @@ class Program {
 For the turns I had to made the drawing to turn vectors properly and use a temporary variable. I don't know if there is a more clever way to do that.
 
 
-## Thirteenth
+## Thirteenth Day
 
 Today I'm not going to bother to convert the input with the notepad++, I'm going to do it (in the first puzzle, the second I guess that I'll have to use those X) by hand.
 
@@ -3290,7 +3290,7 @@ class Program {
                 minMinutesToWait = diff;
                 lineToTake = id;
             }
-			
+
 		}
 		int solution1 = lineToTake * minMinutesToWait;
 		Console.WriteLine("Line to Take: "+lineToTake+" minMinutesToWait: "+minMinutesToWait);
@@ -3300,4 +3300,112 @@ class Program {
 
 ```
 
-Part 2
+### Second puzzle
+
+Oh that sounds complicated. Ok, the idea is that I'm going to try to optimize the number of turns. So from the inputs I'm going to have a dictionary (with just the lines that I care) and the relative position to the maximum. Then I'm going to iterate the maximum and then check in the dictionary if that value is correct.
+
+This is how I made the dictionary.
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+23,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,0,0,0,0,0,863,0,0,0,0,0,0,0,0,0,0,0,19,13,0,0,0,17,0,0,0,0,0,0,0,0,0,0,0,29,0,571,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,41
+		};
+		var sortedInputs = new List<int>(inputs);
+		sortedInputs.Sort();
+		int inputsCount = inputs.Count;
+		int maximumInput = sortedInputs[inputsCount-1];
+	//	Console.WriteLine("maximumInput: "+maximumInput);
+		Dictionary <int, int> filteredInputs =  new Dictionary<int, int>();
+		double solution = 0;
+		bool solutionFound = false;
+		for (var i=0; i<inputsCount; i++){
+			if (inputs[i]==0){
+				continue;
+			}
+			else {
+				filteredInputs.Add(inputs[i],i);
+			}
+		}
+		foreach (var item in filteredInputs) {
+			Console.WriteLine("Key: "+item.Key);
+			Console.WriteLine("Value: "+item.Value);
+		}
+
+    }
+}
+
+```
+
+And this code seems to work with the example. Now let's try with the big input
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+67,7,59,61
+		};
+		var sortedInputs = new List<int>(inputs);
+		sortedInputs.Sort();
+		int inputsCount = inputs.Count;
+		int maximumInput = sortedInputs[inputsCount-1];
+		//Console.WriteLine("maximumInput: "+maximumInput);
+		Dictionary <int, int> filteredInputs =  new Dictionary<int, int>();
+
+		for (var i=0; i<inputsCount; i++){
+			if (inputs[i]==0){
+				continue;
+			}
+			else {
+				filteredInputs.Add(inputs[i],i);
+			}
+		}
+		double solution = 0;
+		double multiplier = 0;
+		double firstValue =0;
+		int correctLines =0;
+		int dictionaryCount = filteredInputs.Count;
+		bool solutionFound = false;
+		int differenceFromMaximumToFirstValue = filteredInputs[maximumInput];
+		//	Console.WriteLine("differenceFromMaximumToFirstValue: "+differenceFromMaximumToFirstValue);
+
+		while (solutionFound == true){
+			correctLines =0;
+			multiplier ++;
+			firstValue = (multiplier * maximumInput) -differenceFromMaximumToFirstValue;
+			foreach (var item in filteredInputs) {
+				if ((firstValue + item.Value)% item.Key == 0){
+					correctLines++;
+				}
+				else{
+					break;
+				}
+			}
+			if (correctLines == dictionaryCount){
+				solutionFound = true;
+				solution = firstValue;
+			}
+		}
+		Console.WriteLine("multiplier: "+multiplier);
+		Console.WriteLine("solution: "+solution);
+    }
+}
+
+```
+
+It takes... some time. I hope that double number works. 
