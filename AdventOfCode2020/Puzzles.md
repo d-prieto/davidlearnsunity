@@ -3215,7 +3215,7 @@ For the turns I had to made the drawing to turn vectors properly and use a tempo
 
 ## Thirteenth
 
-Today I'm not going to bother to convert the input with the notepad++, I'm going to do it (in the first puzzle, the second I guess that I'll have to use those X) by hand. 
+Today I'm not going to bother to convert the input with the notepad++, I'm going to do it (in the first puzzle, the second I guess that I'll have to use those X) by hand.
 
 And it seems that today we're going to use module operator (%)
 
@@ -3224,3 +3224,80 @@ For example, if the bus departs at 5,10,15 and the early point of wait is 23 you
 I'm going to cheat and try that number just in case.
 
 Nah, that would be too easy. But now I have something less to code.
+
+This is the code that woks with the example but it doesn't seem to work with the final input. So time to debug
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+			23,                37,     863,           19,13,   17,           29, 571,                                        41
+		};
+
+
+		int minutesToStart = 1000052;
+		int minMinutesToWait = 10000;
+		int lineToTake =0;
+		foreach (int input in inputs){
+			int minutesToWait = input - (minutesToStart% input);
+			if (minutesToWait < minMinutesToWait) {
+				minMinutesToWait = minutesToWait;
+				lineToTake = input;
+			}
+		}
+		int solution1 = lineToTake * minMinutesToWait;
+		Console.WriteLine("Line to Take: "+lineToTake+" minMinutesToWait: "+minMinutesToWait);
+		Console.WriteLine("Solution: "+solution1);
+    }
+}
+
+```
+
+And it seems that it was correct but I put the wrong number. I used another solution also and it gave me the same number. This is what I found and adapted [from reddit](https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfokhzh/?utm_source=reddit&utm_medium=web2x&context=3):
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+			23,                37,     863,           19,13,   17,           29, 571,                                        41
+		};
+		int minutesToStart = 1000052;
+		int minMinutesToWait = minutesToStart;
+		int lineToTake =0;
+		foreach (int input in inputs){
+			var time = 0;
+			           while (time < minutesToStart)
+            {
+                time += input;
+            }
+			var diff = time - minutesToStart;
+			            if (diff < minMinutesToWait)
+            {
+                minMinutesToWait = diff;
+                lineToTake = id;
+            }
+			
+		}
+		int solution1 = lineToTake * minMinutesToWait;
+		Console.WriteLine("Line to Take: "+lineToTake+" minMinutesToWait: "+minMinutesToWait);
+		Console.WriteLine("Solution: "+solution1);
+    }
+}
+
+```
+
+Part 2
