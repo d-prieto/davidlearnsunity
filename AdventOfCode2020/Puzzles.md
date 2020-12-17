@@ -3805,4 +3805,52 @@ class Program {
 
 ### Second Part
 
-Ok, this is a question about speeeeed. So if you're going to look at it so many times it's going to take time. I'm going to give it a shot with a dictionary but... I'm not sure about it. 
+Ok, this is a question about speeeeed. So if you're going to look at it so many times it's going to take time. I'm going to give it a shot with a dictionary but... I'm not sure about it.
+
+Nah, I cannot make it work with Dictionary. There is something wrong here
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+		0,3,6
+		};
+		int counterTop = 2020;
+		int inputCount = inputs.Count;
+		var outputs = new List<int>();
+		var lastTimeSaw = new Dictionary <int, int>();
+		for (int i = 0; i<counterTop; i++) {
+			if (i<inputCount) {
+				outputs.Add(inputs[i]);
+				lastTimeSaw.Add(inputs[i],i);
+				continue;
+			}
+			//First time the last number was said?
+
+			if (lastTimeSaw[outputs[i-1]] == i-1)
+			{
+				outputs.Add(0);
+				lastTimeSaw[0]=i;
+				continue;
+			}
+			else
+			{
+				int difference = i-lastTimeSaw[outputs[i-1]];
+				outputs.Add(difference);
+				lastTimeSaw.Add(difference,i);
+			}
+		}
+	Console.WriteLine(outputs[2019]);
+
+}}
+
+```
+
+## Sixteenth Day
