@@ -3415,4 +3415,350 @@ Ok, I added this little code to check if the loop still works and it seems that 
 
 ![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura008.JPG)
 
-Um. 
+Um.
+Let's try to use Long instead. Seems to work.
+
+![screenshot](https://raw.githubusercontent.com/d-prieto/davidlearnsunity/main/AdventOfCode2020/Captura009.JPG)
+
+Ok, several hours later this has a problem and it's too slow. The increment (the multiplier is too slow) so I'm going to take another aproach.
+
+I saw other people solutions and they have set the first number and made the increment for that number. Then only consider the next one. If it works, the increment will be AxB.
+
+So let's try. [This is the inspiration](https://www.reddit.com/r/adventofcode/comments/kc4njx/2020_day_13_solutions/gfokhzh/?utm_source=reddit&utm_medium=web2x&context=3)
+
+## Fourteenth Day
+
+
+Today we have masks. So first I'm going to make a function that makes the masks. Then I'll make the input read.
+
+Here is the code.
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+		};
+		int valueToWrite = 11;
+		string mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X";
+		int maskLength = mask.Length;
+		string binary = Convert.ToString(valueToWrite, 2).PadLeft(mask.Length,'0');
+		Console.WriteLine(binary);
+		for (int i = 0; i < maskLength; i++)
+		{
+			if (mask[i].Equals('X')){
+			continue;
+			}
+			else{
+				binary = binary.Insert(i, Char.ToString(mask[i]));
+				binary = binary.Remove(i +1,1);
+			}
+		}
+		Console.WriteLine(binary);
+		valueToWrite = Convert.ToInt32(binary, 2);
+		Console.WriteLine(valueToWrite);
+}}
+
+```
+
+Note: the replace method doesn't work properly here so I prefered to use the insert and remove.
+
+Also, the string binary.Insert and binary.Remove don't work on their own. They need to be binary = binary.Insert(). That took some time to sink in xD
+
+This is the version with the function cleaner:
+
+```
+
+static int valuetoWrite(int valueRead, string mask) {
+  string binary = Convert.ToString(valueRead, 2).PadLeft(mask.Length,'0');
+  for (int i = 0; i < mask.Length; i++)
+  {
+    if (mask[i].Equals('X')){
+    continue;
+    }
+    else{
+      binary = binary.Insert(i, Char.ToString(mask[i]));
+      binary = binary.Remove(i +1,1);
+    }
+  }
+  return Convert.ToInt32(binary, 2);
+}
+
+```
+
+The final code is this: I had to put several Trim() because when I convert the input they go with a " " at the end. Also I had to change the types to long because the problem wanted long numbers.
+
+```
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+	static long valuetoWrite(long valueRead, string mask) {
+    mask = mask.Trim();
+		string binary = Convert.ToString(valueRead, 2).PadLeft(mask.Length,'0');
+		for (int i = 0; i < mask.Length; i++)
+		{
+			if (mask[i].Equals('X')){
+			continue;
+			}
+			else{
+				binary = binary.Insert(i, Char.ToString(mask[i]));
+				binary = binary.Remove(i +1,1);
+			}
+		}
+		return Convert.ToInt64(binary, 2);
+	}
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<string>()
+		{
+
+		};
+		var memories = new Dictionary<int,long>();
+		string mask = "";
+		int memorySector = 0;
+		long memoryValue = 0;
+		for (int i=0; i<inputs.Count; i++){
+			if (inputs[i].IndexOf("mask")!=-1){
+				mask = inputs[i].Substring(inputs[i].IndexOf("=")+2);
+			}
+			else {
+				int startOfMemorySector = inputs[i].IndexOf("[");
+
+				memorySector = Convert.ToInt32(inputs[i].Substring(startOfMemorySector+1, inputs[i].IndexOf("]")- startOfMemorySector-1));
+				Console.WriteLine("Done reading inputs"+inputs[i].Substring(inputs[i].IndexOf("=")+2)+"END");
+				memoryValue = Convert.ToInt32(inputs[i].Substring(inputs[i].IndexOf("=")+2).Trim());
+				memoryValue = valuetoWrite(memoryValue,mask);
+
+				if (memories.ContainsKey(memorySector)){
+					memories[memorySector] = memoryValue;
+				}
+				else {
+					memories.Add(memorySector, memoryValue);
+				}
+			}
+		}
+		Console.WriteLine("Done reading inputs");
+		long sum = 0;
+		foreach (long valueStored in memories.Values) {
+			sum += valueStored;
+		}
+		Console.WriteLine ("Sum: "+ sum);
+}}
+
+```
+
+### Second part
+
+Now we have to work the other way around with the masks. Ok.
+
+Let's do first the function (since I already have it)
+
+For the combination, I'm using a string, fill it with combinations and make replacements. Will it work? Let's see:
+
+
+```
+
+static List<int> keystoWrite(int key, string mask) {
+mask = mask.Trim();
+var keys = new List<int>();
+string binary = Convert.ToString(key, 2).PadLeft(mask.Length,'0');
+int xCounter = 0;
+for (int i = 0; i < mask.Length; i++)
+{
+  if (mask[i].Equals('1')){
+    binary = binary.Insert(i, Char.ToString(mask[i]));
+    binary = binary.Remove(i +1,1);
+  }
+  else if (mask[i].Equals('X')){
+    xCounter++;
+  }
+}
+double possibilities = Math.Pow(2,xCounter);
+var possibleStrings = new List<string>();
+string possibleBinaryComb = "";
+string possibleKey ="";
+int xSbustituted = 0;
+for (int j = 0; j<possibilities ; j++) {
+    possibleBinaryComb = Convert.ToString(j, 2).PadLeft(xCounter,'0');
+    possibleStrings.Add(possibleBinaryComb);
+    possibleKey = binary;
+    for (int i = 0; i < mask.Length; i++)
+    {
+    if (mask[i].Equals('X')){
+      possibleKey = possibleKey.Insert(i, Char.ToString(possibleBinaryComb[xSbustituted]));
+      possibleKey = possibleKey.Remove(i +1,1);
+      xSbustituted++;
+      }
+    }
+    keys.Add(Convert.ToInt32(possibleKey, 2));
+    }
+return keys;
+}
+
+
+static void Main(string[] args) {
+    Console.WriteLine("Hello, world!");
+    var inputs = new List<string>()
+{
+
+};
+var memories = new Dictionary<int,long>();
+string mask = "";
+int memorySector = 0;
+long memoryValue = 0;
+var memorySectors = new List<int>();
+for (int i=0; i<inputs.Count; i++){
+  memorySectors = new List<int>();
+  if (inputs[i].IndexOf("mask")!=-1){
+    mask = inputs[i].Substring(inputs[i].IndexOf("=")+2).Trim();
+  }
+  else {
+    int startOfMemorySector = inputs[i].IndexOf("[");
+
+    memorySector = Convert.ToInt32(inputs[i].Substring(startOfMemorySector+1, inputs[i].IndexOf("]")- startOfMemorySector-1));
+    memoryValue = Convert.ToInt32(inputs[i].Substring(inputs[i].IndexOf("=")+2).Trim());
+    memorySectors = keystoWrite(memorySector,mask);
+    foreach (int sector in memorySectors) {
+    if (memories.ContainsKey(sector)){
+      memories[sector] = memoryValue;
+    }
+    else {
+      memories.Add(sector, memoryValue);
+    }
+
+
+    }
+
+  }
+}
+Console.WriteLine("Done reading inputs");
+long sum = 0;
+foreach (long valueStored in memories.Values) {
+  sum += valueStored;
+}
+Console.WriteLine ("Sum: "+ sum);
+
+```
+
+It doesn't work because I had to reset the xSubstituted variable. But except from that, it works with the example! Now let's break the full input.
+
+Same error with longs. It seems that they like to play it... longer. This is the code that works:
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+	static long valuetoWrite(long valueRead, string mask) {
+		mask = mask.Trim();
+		string binary = Convert.ToString(valueRead, 2).PadLeft(mask.Length,'0');
+		for (int i = 0; i < mask.Length; i++)
+		{
+			if (mask[i].Equals('X')){
+			continue;
+			}
+			else{
+				binary = binary.Insert(i, Char.ToString(mask[i]));
+				binary = binary.Remove(i +1,1);
+			}
+		}
+		return Convert.ToInt64(binary, 2);
+	}
+
+	static List<long> keystoWrite(long key, string mask) {
+		mask = mask.Trim();
+		var keys = new List<long>();
+		string binary = Convert.ToString(key, 2).PadLeft(mask.Length,'0');
+		int xCounter = 0;
+		for (int i = 0; i < mask.Length; i++)
+		{
+			if (mask[i].Equals('1')){
+				binary = binary.Insert(i, Char.ToString(mask[i]));
+				binary = binary.Remove(i +1,1);
+			}
+			else if (mask[i].Equals('X')){
+				xCounter++;
+			}
+		}
+
+		double possibilities = Math.Pow(2,xCounter);
+		var possibleStrings = new List<string>();
+		string possibleBinaryComb = "";
+		string possibleKey ="";
+		int xSbustituted = 0;
+		for (int j = 0; j<possibilities ; j++) {
+		        xSbustituted = 0;
+				possibleBinaryComb = Convert.ToString(j, 2).PadLeft(xCounter,'0');
+				possibleStrings.Add(possibleBinaryComb);
+				possibleKey = binary;
+				for (int i = 0; i < mask.Length; i++)
+				{
+				if (mask[i].Equals('X')){
+					possibleKey = possibleKey.Insert(i, Char.ToString(possibleBinaryComb[xSbustituted]));
+					possibleKey = possibleKey.Remove(i +1,1);
+					xSbustituted++;
+					}
+				}
+				keys.Add(Convert.ToInt64(possibleKey, 2));
+		    }
+		return keys;
+		}
+
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<string>()
+		{
+
+		};
+		var memories = new Dictionary<long,long>();
+		string mask = "";
+		long memorySector = 0;
+		long memoryValue = 0;
+		var memorySectors = new List<long>();
+		for (int i=0; i<inputs.Count; i++){
+			memorySectors = new List<long>();
+			if (inputs[i].IndexOf("mask")!=-1){
+				mask = inputs[i].Substring(inputs[i].IndexOf("=")+2).Trim();
+			}
+			else {
+				int startOfMemorySector = inputs[i].IndexOf("[");
+
+				memorySector = Convert.ToInt32(inputs[i].Substring(startOfMemorySector+1, inputs[i].IndexOf("]")- startOfMemorySector-1));
+				memoryValue = Convert.ToInt32(inputs[i].Substring(inputs[i].IndexOf("=")+2).Trim());
+				memorySectors = keystoWrite(memorySector,mask);
+				foreach (long sector in memorySectors) {
+				if (memories.ContainsKey(sector)){
+					memories[sector] = memoryValue;
+				}
+				else {
+					memories.Add(sector, memoryValue);
+				}
+
+
+				}
+
+			}
+		}
+		Console.WriteLine("Done reading inputs");
+		long sum = 0;
+		foreach (long valueStored in memories.Values) {
+			sum += valueStored;
+		}
+		Console.WriteLine ("Sum: "+ sum);
+}}
+
+```
+
+## Fifteenth Day 
