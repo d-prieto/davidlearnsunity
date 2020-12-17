@@ -3801,3 +3801,8 @@ class Program {
 
 
 ```
+
+
+### Second Part
+
+Ok, this is a question about speeeeed. So if you're going to look at it so many times it's going to take time. I'm going to give it a shot with a dictionary but... I'm not sure about it. 
