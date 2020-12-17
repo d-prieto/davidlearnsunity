@@ -3761,4 +3761,43 @@ class Program {
 
 ```
 
-## Fifteenth Day 
+## Fifteenth Day
+
+
+Elves are weird.
+
+For this I'm going to make a list. I'll put a different list from the inputs just to play it safer but I think it's not necessary.
+
+Here is the code for the easy first steps.
+
+```
+
+using System;
+using System.Collections.Generic;
+
+class Program {
+
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, world!");
+        var inputs = new List<int>()
+		{
+		0,3,6
+		};
+		int counterTop = 10;
+		int inputCount = inputs.Count;
+		var outputs = new List<int>();
+		for (int i = 0; i<counterTop; i++) {
+			if (i<inputCount) {
+				outputs.Add(inputs[i]);
+				continue;
+			}
+
+		}
+		foreach (int item in outputs) {
+			Console.WriteLine(item);
+		}
+
+}}
+
+
+```
